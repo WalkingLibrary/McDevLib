@@ -19,19 +19,16 @@ buildscript {
     }
 }
 
-
-
-
 repositories {
-    jcenter()
-    maven { url 'https://jitpack.io' }
     maven {
         name = 'spongepowered-repo'
         url = 'http://repo.spongepowered.org/maven/'
     }
     mavenCentral()
-
 }
+
+
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.github.johnrengelman.shadow'
@@ -63,7 +60,6 @@ dependencies {
             {
                 exclude module: "launchwrapper"
             }
-    compile 'com.github.WalkingLibrary:Dev-Lib:36a8845a29'
 
 }
 
@@ -88,7 +84,7 @@ build.dependsOn(shadowJar)
 jar {
     manifest {
         attributes (
-                "MixinConfigs": 'devMixins.json',
+                "MixinConfigs": 'mixinsDev.json',
                 "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
                 "TweakOrder": 0,
                 'FMLCorePluginContainsFMLMod': 'true',
@@ -102,7 +98,7 @@ jar {
 mixin
         {
             defaultObfuscationEnv notch
-            add sourceSets.main, "devMixins.json.refmap.json"
+            add sourceSets.main, "mixinsDev.json.refmap.json"
         }
 
 processResources {

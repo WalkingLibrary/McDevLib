@@ -10,7 +10,7 @@ public class Core
     
     {
         MixinBootstrap.init();
-        Mixins.addConfiguration("devMixins.json");
+        Mixins.addConfiguration("mixinsDev.json");
         MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
     }
 }

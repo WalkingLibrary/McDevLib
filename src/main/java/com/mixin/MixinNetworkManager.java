@@ -21,7 +21,6 @@ import java.util.concurrent.Future;
 @Mixin(NetworkManager.class) public abstract class MixinNetworkManager extends SimpleChannelInboundHandler<Packet<?>>
 {
     private boolean sendPackets = true;
-    
     @Shadow
     protected abstract void dispatchPacket(final Packet<?> inPacket,
                                            @Nullable final GenericFutureListener<? extends Future<? super Void>>[] futureListeners);
@@ -30,12 +29,9 @@ import java.util.concurrent.Future;
     private void channelRead0$processPacket(Packet<?> packetIn, INetHandler handler)
     {
         PacketEvent event = new PacketEvent.Receive(packetIn);
-        System.out.println("Hello World");
         MinecraftForge.EVENT_BUS.post(event);
         if(event.isCanceled())
-        {
             return;
-        }
         
         ((Packet<INetHandler>) event.getPacket()).processPacket(handler);
     }
@@ -48,9 +44,7 @@ import java.util.concurrent.Future;
         PacketEvent event = new PacketEvent.Send(packetIn);
         MinecraftForge.EVENT_BUS.post(event);
         if(event.isCanceled())
-        {
             return;
-        }
         
         this.dispatchPacket(event.getPacket(), futureListeners);
     }
@@ -65,8 +59,6 @@ import java.util.concurrent.Future;
     private void flushOutboundQueue(CallbackInfo ci)
     {
         if(!sendPackets)
-        {
             ci.cancel();
-        }
     }
 }
