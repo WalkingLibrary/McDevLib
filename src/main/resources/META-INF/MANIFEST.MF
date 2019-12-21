@@ -1,0 +1,2 @@
+FMLCorePlugin: com.mixin.Core,
+FMLCorePluginContainsFMLMod: true

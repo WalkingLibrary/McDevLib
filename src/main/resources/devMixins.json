@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "com.mixin",
+  "refmap": "devMixins.json.refmap.json",
+  "minVersion": "0",
+  "mixins": [
+    "MixinNetworkManager"
+  ]
+}

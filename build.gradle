@@ -1,0 +1,122 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+
+        maven {
+            name = 'SpongePowered'
+            url = 'http://repo.spongepowered.org/maven'
+        }
+
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
+}
+
+
+
+
+repositories {
+    jcenter()
+    maven { url 'https://jitpack.io' }
+    maven {
+        name = 'spongepowered-repo'
+        url = 'http://repo.spongepowered.org/maven/'
+    }
+    mavenCentral()
+
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+
+version = "0.0.1"
+group = "com.jumbodinosaurs"
+archivesBaseName = "mcdevlib"
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    version = "1.12.2-14.23.1.2555"
+    runDir = "run"
+
+
+    mappings = "snapshot_20171003"
+}
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:8.0.0-SNAPSHOT'
+    compile("org.spongepowered:mixin:0.7.11-SNAPSHOT")
+            {
+                exclude module: "launchwrapper"
+            }
+    compile 'com.github.WalkingLibrary:Dev-Lib:36a8845a29'
+
+}
+
+reobf {
+    shadowJar {
+        mappingType = 'SEARGE'
+        classpath = sourceSets.main.compileClasspath
+    }
+}
+
+shadowJar {
+    dependencies {
+        include(dependency('org.spongepowered:mixin'))
+    }
+    exclude 'dummyThing'
+    exclude 'LICENSE.txt'
+    classifier = 'final'
+}
+
+build.dependsOn(shadowJar)
+
+jar {
+    manifest {
+        attributes (
+                "MixinConfigs": 'devMixins.json',
+                "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
+                "TweakOrder": 0,
+                'FMLCorePluginContainsFMLMod': 'true',
+                'FMLCorePlugin': 'com.mixin.Core',
+                'ForceLoadAsMod': 'true',
+                'FMLAT': 'mcdevlib_at.cfg'
+        )
+    }
+}
+
+mixin
+        {
+            defaultObfuscationEnv notch
+            add sourceSets.main, "devMixins.json.refmap.json"
+        }
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
