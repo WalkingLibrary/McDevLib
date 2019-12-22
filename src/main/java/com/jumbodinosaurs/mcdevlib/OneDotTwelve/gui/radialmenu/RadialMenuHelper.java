@@ -20,6 +20,17 @@ public class RadialMenuHelper
     public static final int iconSize = (int) (size * .75);
     
     
+    
+    public static RadialMenu getMenu()
+    {
+        RadialButtonList mainMenuButtonList = new RadialButtonList(new ArrayList<RadialButton>());
+        RadialMenu mainMenu = new RadialMenu(mainMenuButtonList);
+        ResourceLocation mainIcon = ResourceLocationHelper.tromboneIcon;
+        LabelCon mainLabelCon = new LabelCon(mainIcon,"Main Menu", getEmptyAction());
+        mainMenu.getButtons().setCenterButton(getCenterButton(mainLabelCon));
+        return mainMenu;
+    }
+    
     public static RadialMenu getMenu(RadialMenu parentMenu, ArrayList<?> objects, int index)
     {
         ArrayList<RadialButton> radialButtons = new ArrayList<RadialButton>();
