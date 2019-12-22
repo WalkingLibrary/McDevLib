@@ -5,15 +5,12 @@ import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 
 public class TextDrawer
 {
-    private static ResourceLocation customFont = new ResourceLocation("client", "ascii.png");
-    public static FontRenderer customFontRender = new FontRenderer(Minecraft.getMinecraft().gameSettings,
-                                                                   customFont,
-                                                                   Minecraft.getMinecraft().renderEngine,
-                                                                   false);
-    
     
     public static void drawString(String message, int x, int y, String color) throws NumberFormatException
     {

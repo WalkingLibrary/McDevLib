@@ -7,7 +7,9 @@ import net.minecraft.network.EnumConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.client.CPacketLoginStart;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -94,5 +96,15 @@ public class GameHelper
     public static float getPartialTicks()
     {
         return getInstance().getRenderPartialTicks();
+    }
+    
+    public static void sendLocalMessage(String message)
+    {
+        if(PlayerHelper.safeToCheck())
+        {
+            TextComponentString messageStyled = new TextComponentString(message);
+            messageStyled.setStyle(new Style().setColor(TextFormatting.DARK_GREEN));
+            Minecraft.getMinecraft().player.sendMessage(messageStyled);
+        }
     }
 }
