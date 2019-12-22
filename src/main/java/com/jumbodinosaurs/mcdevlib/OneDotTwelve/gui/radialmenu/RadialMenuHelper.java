@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 public class RadialMenuHelper
 {
-    private static final int size = 35;
-    private static final int subRadius = size;
-    private static final int mainRadius = (int) (size * 3.5);
-    private static final int iconSize = (int) (size * .75);
+    public static final int size = 35;
+    public static final int subRadius = size;
+    public static final int mainRadius = (int) (size * 3.5);
+    public static final int iconSize = (int) (size * .75);
     
     
     public static RadialMenu getMenu(RadialMenu parentMenu, ArrayList<?> objects, int index)
