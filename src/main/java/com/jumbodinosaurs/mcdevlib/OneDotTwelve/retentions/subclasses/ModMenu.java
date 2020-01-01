@@ -32,13 +32,13 @@ public class ModMenu extends BindableRentention
     @Override
     public void onPress()
     {
-        MainMenuManager.initMenu();
-        /*
+      
+        
         if(MainMenuManager.getMainMenu() == null)
         {
             MainMenuManager.initMenu();
         }
-        */
+        
         GameHelper.getInstance().displayGuiScreen(MainMenuManager.getMainMenu());
     }
     

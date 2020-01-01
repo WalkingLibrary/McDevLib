@@ -37,8 +37,8 @@ public class RadialMenu extends GuiScreen
         super.drawScreen(mouseX, mouseY, partialTicks);
         drawDefaultBackground();
         ScaledResolution resolution = new ScaledResolution(GameHelper.getInstance());
-        int centerX = (resolution.getScaledWidth() / 2);
-        int centerY = (resolution.getScaledHeight() / 2);
+        double centerX = (resolution.getScaledWidth() / 2.0);
+        double centerY = (resolution.getScaledHeight() / 2.0);
         Point centerPoint = new Point(centerX, centerY);
         Point mousePoint = new Point(mouseX, mouseY);
      
@@ -65,10 +65,10 @@ public class RadialMenu extends GuiScreen
         super.mouseClicked(mouseX, mouseY, mouseButton);
         
         ScaledResolution resolution = new ScaledResolution(GameHelper.getInstance());
-        int centerX = (resolution.getScaledWidth() / 2);
-        int centerY = (resolution.getScaledHeight() / 2);
+        double centerX = (resolution.getScaledWidth() / 2.0);
+        double centerY = (resolution.getScaledHeight() / 2.0);
         Point centerPoint = new Point(centerX, centerY);
-        Point mousePoint = new Point(mouseX,mouseY);
+        Point mousePoint = new Point(mouseX, mouseY);
         for(int i = 0 ; i < buttons.getButtons().size(); i++)
         {
             RadialButton current = (RadialButton) buttons.getButtons().get(i);

@@ -7,7 +7,6 @@ import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.LabelCon;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.util.TextDrawer;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.objects.Point;
-import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
 
 public class RadialButton extends CircularButton implements IClickableRadial
@@ -26,7 +25,6 @@ public class RadialButton extends CircularButton implements IClickableRadial
         this.circleRadius = RadialMenuUtil.getMainRadius();
         this.listSize = 1;
     }
-    
     
     
     @Override
@@ -116,8 +114,6 @@ public class RadialButton extends CircularButton implements IClickableRadial
             labelDrawY = iconDrawY + offsetAmount;
             
             //offset icon for size
-            
-            //subtract 1 so you can help compinsate for the (int )
             iconDrawX -= offsetAmount;
             iconDrawY -= offsetAmount;
         }
@@ -166,7 +162,7 @@ public class RadialButton extends CircularButton implements IClickableRadial
             
             GL11.glColor3d(255, 255, 255);
             GameHelper.getInstance().getTextureManager().bindTexture(labelCon.getResourceLocation());
-            Gui.drawModalRectWithCustomSizedTexture(iconDrawX,
+            drawIcon(iconDrawX + .5,
                                                     iconDrawY,
                                                     0,
                                                     0,
@@ -185,14 +181,32 @@ public class RadialButton extends CircularButton implements IClickableRadial
     
     public void drawFirstDegreeLine(Point center)
     {
-        int subDegreeX, subDegreeY, mainDegreeX, mainDegreeY;
+        /* Drawing the First Degree Line
+         * Get Two Points To Draw The Line
+         * Use GL11 To Draw The Line
+         *
+         * */
+        
+        
+        //Get Two Points To Draw The Line
+        /*
+         * MATH:
+         * Cos(An Angle) * radius = XPoint on the Circle
+         * Sin(An Angle) * radius = YPoint on the Circle
+         * To give a gap between the Inner And Outer Circle We take and add removedAmount to the radius
+         * We also Translate The Circle based off of our Center x and y
+         * We add 270 to the first degree so that the Line starts at the top for degree 0
+         *  */
+        double innerX, innerY, outerX, outerY;
         double radiansConversion = Math.PI / 180;
-        subDegreeX = (int) (((subCircleRadius + 3) * Math.cos((getFirstDegree() + 270) * radiansConversion)) + center.getX());
-        subDegreeY = (int) (((subCircleRadius + 3) * Math.sin((getFirstDegree() + 270) * radiansConversion)) + center.getY());
-        mainDegreeX = (int) (((circleRadius - 3) * Math.cos((getFirstDegree() + 270) * radiansConversion)) + center.getX());
-        mainDegreeY = (int) (((circleRadius - 3) * Math.sin((getFirstDegree() + 270) * radiansConversion)) + center.getY());
+        int removedAmount = 3;
+        innerX = (((subCircleRadius + removedAmount) * Math.cos((getFirstDegree() + 270) * radiansConversion)) + center.getX());
+        innerY = (((subCircleRadius + removedAmount) * Math.sin((getFirstDegree() + 270) * radiansConversion)) + center.getY());
+        outerX = (((circleRadius - removedAmount) * Math.cos((getFirstDegree() + 270) * radiansConversion)) + center.getX());
+        outerY = (((circleRadius - removedAmount) * Math.sin((getFirstDegree() + 270) * radiansConversion)) + center.getY());
         
         
+        //Use GL11 To Draw The Line
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -201,8 +215,8 @@ public class RadialButton extends CircularButton implements IClickableRadial
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBegin(GL11.GL_LINES);
         GL11.glColor3d(0, 0, 0);
-        GL11.glVertex2d(subDegreeX, subDegreeY);
-        GL11.glVertex2d(mainDegreeX, mainDegreeY);
+        GL11.glVertex2d(innerX, innerY);
+        GL11.glVertex2d(outerX, outerY);
         GL11.glEnd();
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -211,6 +225,8 @@ public class RadialButton extends CircularButton implements IClickableRadial
         GL11.glPopMatrix();
         
     }
+    
+    
     
     public int getListSize()
     {
