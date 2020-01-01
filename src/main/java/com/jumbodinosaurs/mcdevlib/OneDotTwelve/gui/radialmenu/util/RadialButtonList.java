@@ -1,7 +1,8 @@
-package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.objects;
+package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util;
 
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.RadialButton;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.Button;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.RadialButton;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class RadialButtonList
     
     public void add(RadialButton button)
     {
-        add((centerButton != null ? this.buttons.size() - 1 : this.buttons.size()), button);
+        add((centerButton != null ? this.buttons.size()  - 1: this.buttons.size()), button);
     }
     
     public void add(int index, RadialButton button)
@@ -38,7 +39,7 @@ public class RadialButtonList
         updateButtons();
     }
     
-    public void remove(RadialButton button)
+    public void remove(Button button)
     {
         buttons.remove(button);
         updateButtons();
@@ -60,5 +61,5 @@ public class RadialButtonList
         add(this.buttons.size(), centerButton);
     }
     
-    
+   
 }

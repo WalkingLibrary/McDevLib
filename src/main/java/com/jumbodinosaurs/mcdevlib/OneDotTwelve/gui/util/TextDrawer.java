@@ -1,10 +1,12 @@
-package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu;
+package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.util;
 
 
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
 
 public class TextDrawer
 {
+   
+    
     
     public static void drawString(String message, int x, int y, String color) throws NumberFormatException
     {
@@ -29,6 +31,7 @@ public class TextDrawer
             drawString(message, x - GameHelper.getFontRender().getStringWidth(message), y, color);
         }
     }
+    
     
     
 }

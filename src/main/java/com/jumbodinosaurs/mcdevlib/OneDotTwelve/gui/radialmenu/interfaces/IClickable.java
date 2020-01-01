@@ -7,11 +7,6 @@ public interface IClickable
 {
     void onClick(int btn);
     
-    default void onHover()
-    {
-        //nothing
-    }
-    
     boolean isInClickableSpace(Point mouseLocation);
     
     default void onScreenClick(Point mouseLocation, int btn)

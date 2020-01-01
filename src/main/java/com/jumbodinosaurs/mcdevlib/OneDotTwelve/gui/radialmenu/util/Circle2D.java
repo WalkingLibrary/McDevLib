@@ -1,4 +1,4 @@
-package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.objects;
+package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util;
 
 
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.interfaces.IDrawable;
@@ -29,11 +29,11 @@ public class Circle2D implements IDrawable
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glEnable(GL11.GL_DEPTH_TEST);
             GL11.glDepthMask(true);
-            
+       
             GL11.glLineWidth(100);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBegin(GL11.GL_LINES);
-            GL11.glColor3d(0, 0, 0);
+            GL11.glColor3d(0,0,0);
             double lastX, latsY;
             lastX = (radius * Math.cos(radium)) + x;
             latsY = (radius * Math.sin(radium)) + y;

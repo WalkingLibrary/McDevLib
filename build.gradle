@@ -19,14 +19,17 @@ buildscript {
     }
 }
 
-repositories {
-    maven {
-        name = 'spongepowered-repo'
-        url = 'http://repo.spongepowered.org/maven/'
-    }
-    mavenCentral()
-}
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'https://jitpack.io' }
+        maven {
+            name = 'spongepowered-repo'
+            url = 'http://repo.spongepowered.org/maven/'
+        }
 
+    }
+}
 
 
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -56,6 +59,8 @@ minecraft {
 
 dependencies {
     compile 'org.spongepowered:spongeapi:8.0.0-SNAPSHOT'
+    compile 'com.github.WalkingLibrary:Dev-Lib:c0c0a13e5e40f'
+    compile 'com.github.classgraph:classgraph:28b32ec'
     compile("org.spongepowered:mixin:0.7.11-SNAPSHOT")
             {
                 exclude module: "launchwrapper"

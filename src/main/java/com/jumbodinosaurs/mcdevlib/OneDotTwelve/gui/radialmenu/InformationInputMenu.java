@@ -1,9 +1,10 @@
-package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.objects;
+package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu;
 
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.RadialMenuHelper;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.Button;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.TextField;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.CenteredTextField;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.interfaces.IInteractive;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.Circle2D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.objects.Point;
 import net.minecraft.client.gui.GuiButton;
@@ -23,8 +24,9 @@ public class InformationInputMenu extends GuiScreen
     public InformationInputMenu(ArrayList<Button> buttons)
     {
         this.buttons = buttons;
-        this.mainCircle = new Circle2D(RadialMenuHelper.getMainRadius());
+        this.mainCircle = new Circle2D(RadialMenuUtil.getMainRadius());
     }
+    
     
     
     @Override
@@ -36,16 +38,19 @@ public class InformationInputMenu extends GuiScreen
         int centerX = (resolution.getScaledWidth() / 2);
         int centerY = (resolution.getScaledHeight() / 2);
         Point centerPoint = new Point(centerX, centerY);
-        Point mousePoint = new Point(mouseX, mouseY);
+        Point mousePoint = new Point(mouseX,mouseY);
         
         
-        for(int i = 0; i < this.buttons.size(); i++)
+        for(int i = 0 ; i < this.buttons.size(); i++)
         {
             Button current = this.buttons.get(i);
             current.draw(centerPoint);
             if(current.isInClickableSpace(mousePoint))
             {
-                this.buttons.get(i).onHover();
+                if(current instanceof IInteractive)
+                {
+                    ((IInteractive)this.buttons.get(i)).onHover();
+                }
             }
             
         }
@@ -60,12 +65,11 @@ public class InformationInputMenu extends GuiScreen
         ScaledResolution resolution = new ScaledResolution(GameHelper.getInstance());
         int centerX = (resolution.getScaledWidth() / 2);
         int centerY = (resolution.getScaledHeight() / 2);
-        Point centerPoint = new Point(centerX, centerY);
-        Point mousePoint = new Point(mouseX, mouseY);
-        for(int i = 0; i < this.buttons.size(); i++)
+        Point mousePoint = new Point(mouseX,mouseY);
+        for(int i = 0 ; i < this.buttons.size(); i++)
         {
             Button current = this.buttons.get(i);
-            current.onScreenClick(centerPoint, mouseButton);
+            current.onScreenClick(mousePoint, mouseButton);
         }
         
     }
@@ -74,12 +78,12 @@ public class InformationInputMenu extends GuiScreen
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
         super.keyTyped(typedChar, keyCode);
-        for(int i = 0; i < this.buttons.size(); i++)
+        for(int i = 0 ; i < this.buttons.size(); i++)
         {
             Button current = this.buttons.get(i);
-            if(current instanceof TextField)
+            if(current instanceof CenteredTextField)
             {
-                ((TextField) current).getTextField().textboxKeyTyped(typedChar, keyCode);
+                ((CenteredTextField) current).getTextField().textboxKeyTyped(typedChar, keyCode);
             }
         }
     }
@@ -118,12 +122,12 @@ public class InformationInputMenu extends GuiScreen
     public void updateScreen()
     {
         super.updateScreen();
-        for(int i = 0; i < this.buttons.size(); i++)
+        for(int i = 0 ; i < this.buttons.size(); i++)
         {
             Button current = this.buttons.get(i);
-            if(current instanceof TextField)
+            if(current instanceof CenteredTextField)
             {
-                ((TextField) current).getTextField().updateCursorCounter();
+                ((CenteredTextField) current).getTextField().updateCursorCounter();
             }
         }
     }

@@ -1,23 +1,23 @@
-package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.objects;
+package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util;
 
 
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.ButtonAction;
 import net.minecraft.util.ResourceLocation;
 
-public class LabelCon
+public class LabelCon extends Label
 {
     private ResourceLocation resourceLocation;
-    private String label;
     private ButtonAction action;
     
-    public LabelCon(ResourceLocation resourceLocation, String label, ButtonAction action)
+    
+    public LabelCon(String label, ResourceLocation resourceLocation, ButtonAction action)
     {
+        super(label);
         this.resourceLocation = resourceLocation;
-        this.label = label;
         this.action = action;
     }
     
-    
+   
     public ResourceLocation getResourceLocation()
     {
         return resourceLocation;
@@ -28,15 +28,6 @@ public class LabelCon
         this.resourceLocation = resourceLocation;
     }
     
-    public String getLabel()
-    {
-        return label;
-    }
-    
-    public void setLabel(String label)
-    {
-        this.label = label;
-    }
     
     public ButtonAction getAction()
     {

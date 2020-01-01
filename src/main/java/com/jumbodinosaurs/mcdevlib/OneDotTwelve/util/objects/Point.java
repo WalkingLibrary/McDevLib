@@ -20,7 +20,7 @@ public class Point
     
     public double getEuclideanDistance(Point point)
     {
-        return Math.sqrt(Math.pow(getXDifference(point), 2) + Math.pow(getYDifference(point), 2));
+        return Math.sqrt(Math.pow(getXDifference(point), 2) + Math.pow(getYDifference(point),2));
     }
     
     

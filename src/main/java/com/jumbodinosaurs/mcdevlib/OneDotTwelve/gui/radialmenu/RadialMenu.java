@@ -1,8 +1,11 @@
-package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.objects;
+package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu;
 
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.RadialMenuHelper;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.RadialButton;
+
+
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.RadialButton;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.Circle2D;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.RadialButtonList;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.objects.Point;
 import net.minecraft.client.gui.GuiButton;
@@ -17,14 +20,16 @@ public class RadialMenu extends GuiScreen
     private RadialButtonList buttons;
     private Circle2D subCircle;
     private Circle2D mainCircle;
+  
     
     public RadialMenu(RadialButtonList buttons)
     {
         this.buttons = buttons;
-        this.subCircle = new Circle2D(RadialMenuHelper.getSubRadius());
-        this.mainCircle = new Circle2D(RadialMenuHelper.getMainRadius());
+        this.subCircle = new Circle2D(RadialMenuUtil.getSubRadius());
+        this.mainCircle = new Circle2D(RadialMenuUtil.getMainRadius());
     }
     
+ 
     
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
@@ -36,20 +41,20 @@ public class RadialMenu extends GuiScreen
         int centerY = (resolution.getScaledHeight() / 2);
         Point centerPoint = new Point(centerX, centerY);
         Point mousePoint = new Point(mouseX, mouseY);
+     
         
-        
-        for(int i = 0; i < buttons.getButtons().size(); i++)
+        for(int i = 0 ; i < buttons.getButtons().size(); i++)
         {
-            RadialButton current = buttons.getButtons().get(i);
+            RadialButton current = (RadialButton) buttons.getButtons().get(i);
             current.draw(centerPoint);
-            current.setCenterPoint(centerPoint);
+            current.updateCenterPoint(centerPoint);
             if(current.isInClickableSpace(mousePoint))
             {
                 buttons.getButtons().get(i).onHover();
             }
             
         }
-        
+    
         subCircle.draw(centerPoint);
         mainCircle.draw(centerPoint);
     }
@@ -63,12 +68,11 @@ public class RadialMenu extends GuiScreen
         int centerX = (resolution.getScaledWidth() / 2);
         int centerY = (resolution.getScaledHeight() / 2);
         Point centerPoint = new Point(centerX, centerY);
-        Point mousePoint = new Point(mouseX, mouseY);
-        for(int i = 0; i < buttons.getButtons().size(); i++)
+        Point mousePoint = new Point(mouseX,mouseY);
+        for(int i = 0 ; i < buttons.getButtons().size(); i++)
         {
-            RadialButton current = buttons.getButtons().get(i);
-            current.setCenterPoint(centerPoint);
-            current.onScreenClick(centerPoint, mouseButton);
+            RadialButton current = (RadialButton) buttons.getButtons().get(i);
+            current.onScreenClick(mousePoint, mouseButton);
         }
         
     }
@@ -83,7 +87,7 @@ public class RadialMenu extends GuiScreen
     protected void handleComponentHover(ITextComponent component, int x, int y)
     {
         super.handleComponentHover(component, x, y);
-        
+       
     }
     
     @Override

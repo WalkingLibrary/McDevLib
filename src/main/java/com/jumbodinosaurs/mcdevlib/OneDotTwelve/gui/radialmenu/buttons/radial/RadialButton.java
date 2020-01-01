@@ -1,31 +1,38 @@
-package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons;
+package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial;
 
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.RadialMenuHelper;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.TextDrawer;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.RadialMenuUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.interfaces.IClickableRadial;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.objects.LabelCon;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.LabelCon;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.util.TextDrawer;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.objects.Point;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
 
-public class RadialButton extends InterActiveButton implements IClickableRadial
+public class RadialButton extends CircularButton implements IClickableRadial
 {
     protected int listSize;
     protected int listPosition;
     protected int subCircleRadius;
     protected int circleRadius;
     protected boolean drawCentered;
-    protected Point centerPoint;
     
     public RadialButton(boolean drawCentered, LabelCon labelCon, int baseSize)
     {
         super(labelCon, baseSize);
         this.drawCentered = drawCentered;
-        this.subCircleRadius = RadialMenuHelper.getSubRadius();
-        this.circleRadius = RadialMenuHelper.getMainRadius();
+        this.subCircleRadius = RadialMenuUtil.getSubRadius();
+        this.circleRadius = RadialMenuUtil.getMainRadius();
         this.listSize = 1;
+    }
+    
+    
+    
+    @Override
+    public void updateCenterPoint(Point screenCenter)
+    {
+        setCenterPoint(screenCenter);
     }
     
     @Override
@@ -97,7 +104,7 @@ public class RadialButton extends InterActiveButton implements IClickableRadial
         
         int iconDrawX, iconDrawY;
         int labelDrawX, labelDrawY;
-        int offsetAmount = (displaySize / 2);
+        int offsetAmount = (getDisplaySize() / 2);
         if(drawCentered)
         {
             
@@ -163,10 +170,10 @@ public class RadialButton extends InterActiveButton implements IClickableRadial
                                                     iconDrawY,
                                                     0,
                                                     0,
-                                                    displaySize,
-                                                    displaySize,
-                                                    displaySize,
-                                                    displaySize);
+                                                    getDisplaySize(),
+                                                    getDisplaySize(),
+                                                    getDisplaySize(),
+                                                    getDisplaySize());
         }
         //868a38
         //faf3f2
@@ -205,13 +212,6 @@ public class RadialButton extends InterActiveButton implements IClickableRadial
         
     }
     
-    
-    @Override
-    public void onClick(int btn)
-    {
-        labelCon.getAction().onClick();
-    }
-    
     public int getListSize()
     {
         return listSize;
@@ -232,15 +232,4 @@ public class RadialButton extends InterActiveButton implements IClickableRadial
         this.listPosition = listPosition;
     }
     
-    @Override
-    public Point getCenterPoint()
-    {
-        return this.centerPoint;
-    }
-    
-    @Override
-    public void setCenterPoint(Point centerPoint)
-    {
-        this.centerPoint = centerPoint;
-    }
 }
