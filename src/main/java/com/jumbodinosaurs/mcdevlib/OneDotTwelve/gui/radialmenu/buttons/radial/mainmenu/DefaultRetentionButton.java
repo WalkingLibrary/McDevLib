@@ -24,7 +24,7 @@ public class DefaultRetentionButton extends RadialMainMenuButton
         return RadialMenuUtil.getRadialButton(defaultRetentionLabelCon);
     }
     
-    public com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.ButtonAction getDefaultAction()
+    public ButtonAction getDefaultAction()
     {
         return new ButtonAction() {
             @Override

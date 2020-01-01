@@ -35,6 +35,9 @@ public class RetentionManager
         }
         checkForMissingRetentions();
         saveRetentions(loadedRetentions);
+        /*
+         * In order for Forge Events to fire in there respective Classes they need to be added to
+         * the forge event bus.*/
         for(Retention retention: loadedRetentions)
         {
             retention.register();

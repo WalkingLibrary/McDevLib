@@ -125,7 +125,7 @@ public class MainMenuManager
             if(button.getCategory().equals(specifiedCategory))
             {
                 //Assign the return value to the current button in the list if higher priority
-                if(highestPriorityButton == null || highestPriorityButton.getPriority() < button.getPriority())
+                if(highestPriorityButton == null || highestPriorityButton.getDefaultPriority() < button.getDefaultPriority())
                 {
                     highestPriorityButton = button;
                 }
