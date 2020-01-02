@@ -18,6 +18,8 @@ public class RadialMenuUtil
     private static final int mainRadius = (int) (size * 3.5);
     private static final int iconSize = (int) (size * .75);
     
+    private static ResourceLocation backButtonIcon = ResourceLocationUtil.arrowLeftIcon;
+    private static ResourceLocation nextButtonIcon = ResourceLocationUtil.arrowRightIcon;
     
     public static RadialButton getRadialButton(LabelCon labelCon)
     {
@@ -92,7 +94,7 @@ public class RadialMenuUtil
     
     public static RadialButton getNextButton(RadialMenu subMenu)
     {
-        ResourceLocation rightArrowIcon = ResourceLocationUtil.arrowRightIcon;
+        ResourceLocation rightArrowIcon = nextButtonIcon;
         ButtonAction nextAction = new ButtonAction()
         {
             @Override
@@ -109,7 +111,7 @@ public class RadialMenuUtil
     
     public static RadialButton getBackButton(RadialMenu parentMenu)
     {
-        ResourceLocation backArrowIcon = ResourceLocationUtil.arrowLeftIcon;
+        ResourceLocation backArrowIcon = backButtonIcon;
         ButtonAction backAction = new ButtonAction()
         {
             @Override
@@ -147,4 +149,23 @@ public class RadialMenuUtil
         return iconSize;
     }
     
+    public static ResourceLocation getBackButtonIcon()
+    {
+        return backButtonIcon;
+    }
+    
+    public static void setBackButtonIcon(ResourceLocation backButtonIcon)
+    {
+        RadialMenuUtil.backButtonIcon = backButtonIcon;
+    }
+    
+    public static ResourceLocation getNextButtonIcon()
+    {
+        return nextButtonIcon;
+    }
+    
+    public static void setNextButtonIcon(ResourceLocation nextButtonIcon)
+    {
+        RadialMenuUtil.nextButtonIcon = nextButtonIcon;
+    }
 }

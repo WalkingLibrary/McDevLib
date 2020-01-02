@@ -4,6 +4,7 @@ package com.jumbodinosaurs.mcdevlib.OneDotTwelve;
 import com.jumbodinosaurs.devlib.commands.CommandManager;
 import com.jumbodinosaurs.devlib.commands.MessageResponse;
 import com.jumbodinosaurs.devlib.commands.exceptions.WaveringParametersException;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.MainMenuManager;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.BindableRentention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.Retention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.RetentionManager;
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
     public static final String modid = "mcdevlib";
     public static final String version = "0.0.1";
     /* TODO
+      * Add Disable Mixins Ability
       * Add Default Options Button (Add Options System)
       *
       *
@@ -41,6 +43,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
     {
         RetentionManager.initializeRetentions();
         DevLibKeyBindManager.registerKeyBinds();
+        MainMenuManager.refreshMenu();
         MinecraftForge.EVENT_BUS.register(this);
     }
     

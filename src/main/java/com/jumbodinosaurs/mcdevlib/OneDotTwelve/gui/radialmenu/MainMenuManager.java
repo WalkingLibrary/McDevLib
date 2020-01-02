@@ -14,7 +14,7 @@ public class MainMenuManager
     private static final String centerButtonCategory = "MAIN MENU";
     private static RadialMenu mainMenu;
     
-    public static void initMenu()
+    public static void refreshMenu()
     {
         /* Initializing the Menu
          * Get and Set The Center Button
