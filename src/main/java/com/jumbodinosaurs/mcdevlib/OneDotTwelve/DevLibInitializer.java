@@ -4,6 +4,7 @@ package com.jumbodinosaurs.mcdevlib.OneDotTwelve;
 import com.jumbodinosaurs.devlib.commands.CommandManager;
 import com.jumbodinosaurs.devlib.commands.MessageResponse;
 import com.jumbodinosaurs.devlib.commands.exceptions.WaveringParametersException;
+import com.jumbodinosaurs.devlib.util.GeneralUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.MainMenuManager;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.BindableRentention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.Retention;
@@ -18,18 +19,16 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 
+import java.io.File;
+
 
 @Mod(useMetadata = true, modid = DevLibInitializer.modid, version = DevLibInitializer.version) public class DevLibInitializer
 {
     
     public static final String modid = "mcdevlib";
     public static final String version = "0.0.1";
-    /* TODO
-      * Add Disable Mixins Ability
-      * Add Default Options Button (Add Options System)
-      *
-      *
-      *  */
+    public static File modDir = GeneralUtil.checkFor(GameHelper.minecraftDir, "Jums Dev Lib");
+    
     
     @Mod.EventHandler
     public void preInit(FMLInitializationEvent event)

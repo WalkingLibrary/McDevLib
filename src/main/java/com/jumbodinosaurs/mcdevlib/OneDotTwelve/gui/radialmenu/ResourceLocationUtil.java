@@ -9,6 +9,8 @@ public class ResourceLocationUtil
     
     public static ResourceLocation devLibIcon = new ResourceLocation("icons", "devlibicon.png");
     
+    public static ResourceLocation optionsIcon = new ResourceLocation("icons", "optionsicon.png");
+    
     
     public static ResourceLocation retentionIcon = new ResourceLocation("icons", "retentionicon.png");
     
@@ -37,7 +39,7 @@ public class ResourceLocationUtil
     public static ResourceLocation prismIcon = new ResourceLocation("icons", "prism.png");
     
     
-    public static ResourceLocation optionsIcon = new ResourceLocation("icons", "options.png");
+    public static ResourceLocation switchesIcon = new ResourceLocation("icons", "options.png");
     
     
     public static ResourceLocation movementIcon = new ResourceLocation("icons", "movement.png");

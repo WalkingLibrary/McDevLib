@@ -17,29 +17,14 @@ import java.net.InetAddress;
 public class GameHelper
 {
     
-    public static File minecraftDir = initMinecraftDirectory();
+    public static File minecraftDir = new File(System.getProperty("user.dir"));
     
     
     public static File initMinecraftDirectory()
     {
-        File thisClassFile = new File("DataController.class");
-        String mcDirPath = thisClassFile.getAbsolutePath();
-        
-        String mcFileName = File.separator + ".minecraft";
-        if(mcDirPath.contains(mcFileName))
-        {
-            mcDirPath = mcDirPath.substring(0, mcDirPath.indexOf(mcFileName) + mcFileName.length());
-        }
-        else
-        {
-            mcDirPath = new File(Minecraft.getMinecraft().mcDataDir.getAbsolutePath()
-                                                                   .substring(0,
-                                                                              Minecraft.getMinecraft().mcDataDir.getAbsolutePath()
-                                                                                                                .length() - 1))
-                                .getAbsolutePath();
-        }
-        
-        return new File(mcDirPath);
+        File mdDir =  new File(System.getProperty("user.dir")).getParentFile();
+        System.out.println(mdDir.getAbsolutePath());
+        return mdDir;
     }
     
     public static void disconnect(String reason)

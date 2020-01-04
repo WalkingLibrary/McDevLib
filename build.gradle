@@ -19,6 +19,8 @@ buildscript {
     }
 }
 
+
+
 allprojects {
     repositories {
         jcenter()
@@ -57,9 +59,11 @@ minecraft {
     mappings = "snapshot_20171003"
 }
 
+
+
 dependencies {
     compile 'org.spongepowered:spongeapi:8.0.0-SNAPSHOT'
-    compile 'com.github.WalkingLibrary:Dev-Lib:c0c0a13e5e40f'
+    compile 'com.github.WalkingLibrary:Dev-Lib:-SNAPSHOT'
     compile 'com.github.classgraph:classgraph:28b32ec'
     compile("org.spongepowered:mixin:0.7.11-SNAPSHOT")
             {
@@ -67,6 +71,8 @@ dependencies {
             }
 
 }
+
+
 
 reobf {
     shadowJar {
@@ -84,7 +90,14 @@ shadowJar {
     classifier = 'final'
 }
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 build.dependsOn(shadowJar)
+
+
+
 
 jar {
     manifest {
@@ -105,7 +118,6 @@ mixin
             defaultObfuscationEnv notch
             add sourceSets.main, "mixinsDev.json.refmap.json"
         }
-
 processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
@@ -120,4 +132,7 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
+
+
 

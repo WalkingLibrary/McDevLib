@@ -1,5 +1,7 @@
 package com.mixin;
 
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.settings.MixinsOption;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.settings.OptionsManager;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
@@ -13,9 +15,13 @@ public class Core implements IFMLLoadingPlugin
     
     public Core()
     {
-        MixinBootstrap.init();
-        Mixins.addConfiguration("mixinsDev.json");
-        MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
+        OptionsManager.initialiseSettings();
+        if(OptionsManager.getOption(MixinsOption.class.getSimpleName()).isActive())
+        {
+            MixinBootstrap.init();
+            Mixins.addConfiguration("mixinsDev.json");
+            MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
+        }
     }
     
     @Override

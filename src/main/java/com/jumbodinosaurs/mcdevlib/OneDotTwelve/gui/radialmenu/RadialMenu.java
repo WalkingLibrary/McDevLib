@@ -3,6 +3,7 @@ package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu;
 
 
 
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.InformativeRadialButton;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.RadialButton;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.Circle2D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.RadialButtonList;
@@ -41,22 +42,31 @@ public class RadialMenu extends GuiScreen
         double centerY = (resolution.getScaledHeight() / 2.0);
         Point centerPoint = new Point(centerX, centerY);
         Point mousePoint = new Point(mouseX, mouseY);
-     
-        
+        subCircle.draw(centerPoint);
+        mainCircle.draw(centerPoint);
+    
         for(int i = 0 ; i < buttons.getButtons().size(); i++)
         {
             RadialButton current = (RadialButton) buttons.getButtons().get(i);
             current.draw(centerPoint);
+        }
+        for(int i = 0 ; i < buttons.getButtons().size(); i++)
+        {
+            RadialButton current = (RadialButton) buttons.getButtons().get(i);
             current.updateCenterPoint(centerPoint);
             if(current.isInClickableSpace(mousePoint))
             {
-                buttons.getButtons().get(i).onHover();
+                
+                current.onHover();
+                if(current instanceof InformativeRadialButton)
+                {
+                    this.drawHoveringText(((InformativeRadialButton) current).getToolTip(), mouseX, mouseY);
+                }
             }
             
         }
     
-        subCircle.draw(centerPoint);
-        mainCircle.draw(centerPoint);
+        
     }
     
     @Override

@@ -2,8 +2,10 @@ package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu;
 
 
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.ButtonAction;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.InformativeRadialButton;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.RadialButton;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.interfaces.IDisplayable;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.interfaces.IInformative;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.LabelCon;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.RadialButtonList;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
@@ -42,7 +44,12 @@ public class RadialMenuUtil
                 LabelCon labelCon = new LabelCon(((IDisplayable) current).getLabel(),
                                                  ((IDisplayable) current).getIcon(),
                                                  ((IDisplayable) current).getAction(menu));
+                
                 RadialButton button = new RadialButton(false, labelCon, iconSize);
+                if(current instanceof IInformative)
+                {
+                    button = new InformativeRadialButton(false, labelCon, iconSize, (IInformative) current);
+                }
                 radialButtons.add(button);
             }
             
