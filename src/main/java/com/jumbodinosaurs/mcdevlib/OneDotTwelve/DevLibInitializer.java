@@ -26,7 +26,7 @@ import java.io.File;
 {
     
     public static final String modid = "mcdevlib";
-    public static final String version = "0.0.1";
+    public static final String version = "1.0.0";
     public static File modDir = GeneralUtil.checkFor(GameHelper.minecraftDir, "Jums Dev Lib");
     
     
