@@ -16,7 +16,7 @@ public class Core implements IFMLLoadingPlugin
     public Core()
     {
         OptionsManager.initialiseSettings();
-        if(OptionsManager.getOption(MixinsOption.class.getSimpleName()).isActive())
+        if(OptionsManager.getOption(MixinsOption.class.getCanonicalName()).isActive())
         {
             MixinBootstrap.init();
             Mixins.addConfiguration("mixinsDev.json");
