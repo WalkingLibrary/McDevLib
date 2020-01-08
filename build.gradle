@@ -21,15 +21,17 @@ buildscript {
 
 
 
+
 allprojects {
     repositories {
-        jcenter()
-        maven { url 'https://jitpack.io' }
+        
         maven {
             name = 'spongepowered-repo'
             url = 'http://repo.spongepowered.org/maven/'
         }
-
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+        jcenter()
     }
 }
 
