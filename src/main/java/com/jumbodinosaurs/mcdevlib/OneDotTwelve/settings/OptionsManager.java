@@ -1,15 +1,13 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.settings;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import com.jumbodinosaurs.devlib.util.GeneralUtil;
+import com.jumbodinosaurs.devlib.util.GsonUtil;
 import com.jumbodinosaurs.devlib.util.ReflectionUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.DevLibInitializer;
 
 import java.io.File;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class OptionsManager
@@ -49,19 +47,23 @@ public class OptionsManager
     
     private static ArrayList<Option> loadOptions() throws JsonParseException
     {
-        
-        Type typeToken = new TypeToken<ArrayList<Option>>() {}.getType();
-        String optionData = GeneralUtil.scanFileContents(optionsJson);
-        GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(GeneralUtil.getContextRuntimeTypeAdapterFactory(
-                optionData,
-                Option.class));
-        Gson gson = builder.create();
-        ArrayList<Option> options = gson.fromJson(optionData, typeToken);
+    
+        ArrayList<Option> options = new ArrayList<Option>();
+        try
+        {
+            options = GsonUtil.readObjectHoldersList(optionsJson, Option.class,
+                                                        new TypeToken<ArrayList<Option>>(){});
+        }
+        catch(JsonParseException e)
+        {
+            System.out.println("Error Parsing Option Data Throwing out data");
+        }
+    
         if(options != null)
         {
             for(Option option : options)
             {
-                option.setType(option.getIdentifier());
+                option.setType(option.getClass().getSimpleName());
             }
         }
         return options;
@@ -99,12 +101,7 @@ public class OptionsManager
     
     public static void saveOptions(ArrayList<Option> options)
     {
-        GsonBuilder builder = new GsonBuilder().setPrettyPrinting()
-                                               .registerTypeAdapterFactory(GeneralUtil.getClassPathRuntimeTypeAdapterFactory(
-                                                       Option.class));
-        Gson gson = builder.create();
-        String retentionsToString = gson.toJson(options);
-        GeneralUtil.writeContents(optionsJson, retentionsToString, false);
+        GsonUtil.saveObjectsToHolderList(optionsJson, options, Option.class);
     }
     
     
@@ -113,11 +110,11 @@ public class OptionsManager
         return loadedOptions;
     }
     
-    public static Option getOption(String simpleName)
+    public static Option getOption(String canonicalName)
     {
         for(Option option: getLoadedOptions())
         {
-            if(option.getType().equals(simpleName))
+            if(option.getClass().getCanonicalName().equals(canonicalName))
             {
                 return option;
             }

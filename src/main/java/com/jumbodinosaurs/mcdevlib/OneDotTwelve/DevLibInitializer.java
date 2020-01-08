@@ -43,6 +43,7 @@ import java.io.File;
         RetentionManager.initializeRetentions();
         DevLibKeyBindManager.registerKeyBinds();
         MainMenuManager.refreshMenu();
+        CommandManager.refreshCommands();
         MinecraftForge.EVENT_BUS.register(this);
     }
     
@@ -51,19 +52,23 @@ import java.io.File;
     public void onChatMessage(ClientChatEvent event)
     {
         String message = event.getMessage();
-        
+        GameHelper.getInstance().ingameGUI.getChatGUI().addToSentMessages(message);
         try
         {
             MessageResponse response = CommandManager.filter(message, true);
             if(response != null)
             {
                 GameHelper.sendLocalMessage(response.getMessage());
+                event.setCanceled(true);
             }
+            
         }
         catch(WaveringParametersException e)
         {
             GameHelper.sendLocalMessage(e.getMessage());
+            event.setCanceled(true);
         }
+        
     }
     
     
