@@ -9,6 +9,7 @@ import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.MainMenuManager;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.BindableRentention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.Retention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.RetentionManager;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.settings.OptionsManager;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.DevLibKeyBindManager;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
 import net.minecraftforge.client.event.ClientChatEvent;
@@ -27,7 +28,8 @@ import java.io.File;
     
     public static final String modid = "mcdevlib";
     public static final String version = "1.0.0";
-    public static File modDir = GeneralUtil.checkFor(GameHelper.minecraftDir, "Jums Dev Lib");
+    public static final String modDirName = "Jums Dev Lib";
+    public static File modDir = GeneralUtil.checkFor(GameHelper.minecraftDir, modDirName);
     
     
     @Mod.EventHandler
@@ -41,6 +43,7 @@ import java.io.File;
     public void postInit(FMLPostInitializationEvent event)
     {
         RetentionManager.initializeRetentions();
+        OptionsManager.initializeSettings();
         DevLibKeyBindManager.registerKeyBinds();
         MainMenuManager.refreshMenu();
         CommandManager.refreshCommands();

@@ -12,14 +12,15 @@ import java.util.ArrayList;
 
 public class OptionsManager
 {
-    public static File optionsJson = GeneralUtil.checkFor(DevLibInitializer.modDir, "options.json");
+    public static final String optionsFileName = "options.json";
+    public static File optionsJson = GeneralUtil.checkFor(DevLibInitializer.modDir, optionsFileName);
     private static ArrayList<Option> loadedOptions;
     
     
     
     
     
-    public static void initialiseSettings()
+    public static void initializeSettings()
     {
         /*
          * Loading The Settings
@@ -70,6 +71,31 @@ public class OptionsManager
         
     }
     
+    public static ArrayList<Option> loadOptions(File file) throws JsonParseException
+    {
+        
+        ArrayList<Option> options = new ArrayList<Option>();
+        try
+        {
+            options = GsonUtil.readObjectHoldersList(file, Option.class,
+                                                     new TypeToken<ArrayList<Option>>(){});
+        }
+        catch(JsonParseException e)
+        {
+            System.out.println("Error Parsing Option Data Throwing out data");
+        }
+        
+        if(options != null)
+        {
+            for(Option option : options)
+            {
+                option.setType(option.getClass().getSimpleName());
+            }
+        }
+        return options;
+        
+    }
+    
     private static void checkForMissingOptions()
     {
         
@@ -108,6 +134,18 @@ public class OptionsManager
     public static ArrayList<Option> getLoadedOptions()
     {
         return loadedOptions;
+    }
+    
+    public static Option getOption(String canonicalName, ArrayList<Option> options)
+    {
+        for(Option option: options)
+        {
+            if(option.getClass().getCanonicalName().equals(canonicalName))
+            {
+                return option;
+            }
+        }
+        return null;
     }
     
     public static Option getOption(String canonicalName)
