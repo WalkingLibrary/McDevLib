@@ -48,9 +48,13 @@ public class DrawManager extends Retention
     }
     
     @SubscribeEvent
+    public void onDrawEvent(RenderWorldLastEvent event)
+    {
+        DrawManager.getDrawManager().onDraw(event);
+    }
+    
     public void onDraw(RenderWorldLastEvent event)
     {
-        
         float partialTickTime = event.getPartialTicks();
         WayPoint relativePlayerPosition = PlayerHelper.getPlayerPositionForRenderEvent(partialTickTime);
         for(int i = 0; i < this.linesToDraw.size(); i++)
