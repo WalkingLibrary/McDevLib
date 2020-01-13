@@ -1,21 +1,22 @@
-package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.util;
+package com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.subclasses;
 
 
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.objects.Line;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.Retention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.PlayerHelper;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class DrawManager
+public class DrawManager extends Retention
 {
     private static final DrawManager drawManager = new DrawManager();
-    //TODO CopyOnWriteArrayList ???
-    private ArrayList<Line> linesToDraw = new ArrayList<Line>();
+    private CopyOnWriteArrayList<Line> linesToDraw = new CopyOnWriteArrayList<Line>();
     private int threshold = 25000;
     private boolean messaged;
     
@@ -46,7 +47,7 @@ public class DrawManager
         this.linesToDraw.remove(line);
     }
     
-    
+    @SubscribeEvent
     public void onDraw(RenderWorldLastEvent event)
     {
         
@@ -92,5 +93,11 @@ public class DrawManager
             GL11.glPopMatrix();
         }
         
+    }
+    
+    @Override
+    public String getInfoMessage()
+    {
+        return "Draws Line Based Objects";
     }
 }

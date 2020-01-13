@@ -2,7 +2,7 @@ package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.objects;
 
 
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.util.DrawManager;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.subclasses.DrawManager;
 
 import java.util.ArrayList;
 
