@@ -5,6 +5,5 @@
   "refmap": "mixinsDev.json.refmap.json",
   "minVersion": "0",
   "mixins": [
-    "MixinNetworkManager"
   ]
 }
