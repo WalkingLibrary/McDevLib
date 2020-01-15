@@ -5,7 +5,6 @@ import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.objects.Line;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.Retention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.PlayerHelper;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
@@ -55,14 +54,12 @@ public class DrawManager extends Retention
     
     public void onDraw(RenderWorldLastEvent event)
     {
-        float partialTickTime = event.getPartialTicks();
-        WayPoint relativePlayerPosition = PlayerHelper.getPlayerPositionForRenderEvent(partialTickTime);
         for(int i = 0; i < this.linesToDraw.size(); i++)
         {
             
             GL11.glPushMatrix();
             Line currentLine = this.linesToDraw.get(i);
-           
+            
             GL11.glLineWidth(currentLine.getWidth());
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             if(!currentLine.needsDepth())
@@ -74,21 +71,26 @@ public class DrawManager extends Retention
             {
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
                 GL11.glDepthMask(true);
-    
+                
             }
             GL11.glEnable(GL11.GL_BLEND);
             Color currentColor = currentLine.getColor();
             GL11.glColor3d(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue());
-            GL11.glTranslated(-relativePlayerPosition.getX(),
-                              -relativePlayerPosition.getY(),
-                              -relativePlayerPosition.getZ());
+            
+            double xTranslation = GameHelper.getInstance().getRenderManager().renderPosX;
+            double yTranslation = GameHelper.getInstance().getRenderManager().renderPosY;
+            double zTranslation = GameHelper.getInstance().getRenderManager().renderPosZ;
             GL11.glBegin(GL11.GL_LINES);
             
             
             WayPoint pointOne = currentLine.getPointOne();
             WayPoint pointTwo = currentLine.getPointTwo();
-            GL11.glVertex3d(pointOne.getX(), pointOne.getY(), pointOne.getZ());
-            GL11.glVertex3d(pointTwo.getX(), pointTwo.getY(), pointTwo.getZ());
+            GL11.glVertex3d(pointOne.getX() - xTranslation,
+                            pointOne.getY() - yTranslation,
+                            pointOne.getZ() - zTranslation);
+            GL11.glVertex3d(pointTwo.getX() - xTranslation,
+                            pointTwo.getY() - yTranslation,
+                            pointTwo.getZ() - zTranslation);
             GL11.glEnd();
             GL11.glDisable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_TEXTURE_2D);

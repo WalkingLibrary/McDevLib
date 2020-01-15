@@ -65,7 +65,7 @@ minecraft {
 
 dependencies {
     compile 'org.spongepowered:spongeapi:8.0.0-SNAPSHOT'
-    compile 'com.github.WalkingLibrary:Dev-Lib:1.1.0'
+    compile 'com.github.WalkingLibrary:Dev-Lib:1.+'
     compile 'com.github.classgraph:classgraph:28b32ec'
     compile("org.spongepowered:mixin:0.7.11-SNAPSHOT")
             {
@@ -85,7 +85,7 @@ reobf {
 
 shadowJar {
     dependencies {
-        include(dependency('com.github.WalkingLibrary:Dev-Lib:1.1.0'))
+        include(dependency('com.github.WalkingLibrary:Dev-Lib:1.+'))
         include(dependency('com.github.classgraph:classgraph:28b32ec'))
         include(dependency('org.spongepowered:mixin'))
 

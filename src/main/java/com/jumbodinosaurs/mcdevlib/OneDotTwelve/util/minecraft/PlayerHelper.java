@@ -148,13 +148,6 @@ public class PlayerHelper
         return new WayPoint(getX(), getY(), getZ());
     }
     
-    public static WayPoint getPlayerPositionForRenderEvent(float partialTickTime)
-    {
-        double x = getPlayer().lastTickPosX + (getX() - getPlayer().lastTickPosX) * partialTickTime;
-        double y = getPlayer().lastTickPosY + (getY() - getPlayer().lastTickPosY) * partialTickTime;
-        double z = getPlayer().lastTickPosZ + (getZ() - getPlayer().lastTickPosZ) * partialTickTime;
-        return new WayPoint(x, y, z);
-    }
     
     public static boolean safeToCheck()
     {
