@@ -59,6 +59,11 @@ public class ChunkCoord
         return neighbors;
     }
     
+    public double getEuclideanDistance(ChunkCoord chunkCoord)
+    {
+        return Math.sqrt(Math.pow(getX() - chunkCoord.getX(), 2) + (Math.pow(getZ() - chunkCoord.getZ(), 2)));
+    }
+    
     public boolean equals(ChunkCoord chunkCoord)
     {
         return this.x == chunkCoord.getX() && this.z == chunkCoord.z;
