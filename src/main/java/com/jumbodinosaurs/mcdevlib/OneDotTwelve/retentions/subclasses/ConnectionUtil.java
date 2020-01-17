@@ -6,8 +6,8 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 public class ConnectionUtil extends Retention
 {
-    private static String ip;
-    private static int port;
+    private transient static String ip;
+    private transient static int port;
     
     public static String getIp()
     {
@@ -29,7 +29,8 @@ public class ConnectionUtil extends Retention
         if(firstSplit.length == 2)
         {
             ip = firstSplit[0];
-            ip = ip.replaceAll("/", " ");
+            ip = ip.replaceAll("/", " ") + " ";
+            ip = ip.split(" ")[0];
             port = Integer.parseInt(firstSplit[1]);
             System.out.println("Ip: " + ip);
             System.out.println("Port: " + port);

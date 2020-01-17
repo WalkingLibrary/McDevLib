@@ -54,11 +54,11 @@ public class DrawManager extends Retention
     
     public void onDraw(RenderWorldLastEvent event)
     {
-        for(int i = 0; i < this.linesToDraw.size(); i++)
+        for(Line currentLine: linesToDraw)
         {
             
             GL11.glPushMatrix();
-            Line currentLine = this.linesToDraw.get(i);
+           
             
             GL11.glLineWidth(currentLine.getWidth());
             GL11.glDisable(GL11.GL_TEXTURE_2D);
