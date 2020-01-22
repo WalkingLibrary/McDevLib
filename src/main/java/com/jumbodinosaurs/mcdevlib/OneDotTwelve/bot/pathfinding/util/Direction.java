@@ -1,5 +1,8 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public enum Direction
 {
     //Directions should always have only ones and zeros as there x and z
@@ -45,6 +48,20 @@ public enum Direction
             }
         }
         return SAMEPOINT;
+    }
+    
+    public static ArrayList<Direction> getCardinalDirections()
+    {
+        Direction[] cardinalPointsArray = {NORTH, SOUTH, EAST, WEST};
+        return (ArrayList<Direction>) Arrays.asList(cardinalPointsArray);
+        
+    }
+    
+    public static ArrayList<Direction> getOrdinalDirections()
+    {
+        Direction[] ordinalPointsArray = {NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST};
+        return (ArrayList<Direction>) Arrays.asList(ordinalPointsArray);
+        
     }
     
     public boolean equals(Direction direction)
