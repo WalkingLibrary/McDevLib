@@ -1,7 +1,7 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public enum Direction
 {
@@ -50,17 +50,17 @@ public enum Direction
         return SAMEPOINT;
     }
     
-    public static ArrayList<Direction> getCardinalDirections()
+    public static List<Direction> getCardinalDirections()
     {
         Direction[] cardinalPointsArray = {NORTH, SOUTH, EAST, WEST};
-        return (ArrayList<Direction>) Arrays.asList(cardinalPointsArray);
+        return Arrays.asList(cardinalPointsArray);
         
     }
     
-    public static ArrayList<Direction> getOrdinalDirections()
+    public static List<Direction> getOrdinalDirections()
     {
         Direction[] ordinalPointsArray = {NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST};
-        return (ArrayList<Direction>) Arrays.asList(ordinalPointsArray);
+        return Arrays.asList(ordinalPointsArray);
         
     }
     
