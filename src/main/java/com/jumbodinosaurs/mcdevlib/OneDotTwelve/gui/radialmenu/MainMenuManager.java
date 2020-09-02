@@ -1,6 +1,7 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu;
 
-import com.jumbodinosaurs.devlib.util.ReflectionUtil;
+
+import com.jumbodinosaurs.devlib.reflection.ReflectionUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.RadialButton;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.mainmenu.DefaultCenterButton;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.mainmenu.RadialMainMenuButton;

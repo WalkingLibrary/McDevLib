@@ -1,7 +1,7 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft;
 
+import com.jumbodinosaurs.devlib.math.DevLibMathUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.MinecraftMathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -79,17 +79,17 @@ public class PlayerHelper
     
     public static double getRoundedX()
     {
-        return MinecraftMathUtil.roundAvoid(getPlayer().posX, 4);
+        return DevLibMathUtil.roundAvoid(getPlayer().posX, 4);
     }
     
     public static double getRoundedY()
     {
-        return MinecraftMathUtil.roundAvoid(getPlayer().posY, 4);
+        return DevLibMathUtil.roundAvoid(getPlayer().posY, 4);
     }
     
     public static double getRoundedZ()
     {
-        return MinecraftMathUtil.roundAvoid(getPlayer().posZ, 4);
+        return DevLibMathUtil.roundAvoid(getPlayer().posZ, 4);
     }
     
     public static double getMotionX()
@@ -135,7 +135,7 @@ public class PlayerHelper
     
     public static WayPoint getPlayerPositionAsWayPointSolidY()
     {
-        return new WayPoint(getX(), MinecraftMathUtil.round(getY()), getZ());
+        return new WayPoint(getX(), DevLibMathUtil.round(getY()), getZ());
     }
     
     public static WayPoint getPlayerPositionAsWayPointROUNDED()

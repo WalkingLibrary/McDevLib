@@ -2,9 +2,9 @@ package com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import com.jumbodinosaurs.devlib.json.GsonUtil;
+import com.jumbodinosaurs.devlib.reflection.ReflectionUtil;
 import com.jumbodinosaurs.devlib.util.GeneralUtil;
-import com.jumbodinosaurs.devlib.util.GsonUtil;
-import com.jumbodinosaurs.devlib.util.ReflectionUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.DevLibInitializer;
 
 import java.io.File;

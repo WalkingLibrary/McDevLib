@@ -2,7 +2,7 @@ package com.jumbodinosaurs.mcdevlib.OneDotTwelve.commands;
 
 import com.jumbodinosaurs.devlib.commands.CommandWithParameters;
 import com.jumbodinosaurs.devlib.commands.MessageResponse;
-import com.jumbodinosaurs.devlib.util.ReflectionUtil;
+import com.jumbodinosaurs.devlib.reflection.ReflectionUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.Retention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.RetentionManager;
 

@@ -6,8 +6,6 @@
 
 
 
-Have you Ever Written Code for Minecraft So Good You use it again? Me Either, but if I did I'd put it here.
-
   - Mixins
   - Radial Gui
 

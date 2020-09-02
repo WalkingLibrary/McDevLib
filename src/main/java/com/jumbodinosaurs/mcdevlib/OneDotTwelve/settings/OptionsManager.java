@@ -2,9 +2,9 @@ package com.jumbodinosaurs.mcdevlib.OneDotTwelve.settings;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import com.jumbodinosaurs.devlib.json.GsonUtil;
+import com.jumbodinosaurs.devlib.reflection.ReflectionUtil;
 import com.jumbodinosaurs.devlib.util.GeneralUtil;
-import com.jumbodinosaurs.devlib.util.GsonUtil;
-import com.jumbodinosaurs.devlib.util.ReflectionUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.DevLibInitializer;
 
 import java.io.File;
@@ -52,8 +52,7 @@ public class OptionsManager
         ArrayList<Option> options = new ArrayList<Option>();
         try
         {
-            options = GsonUtil.readObjectHoldersList(optionsJson, Option.class,
-                                                        new TypeToken<ArrayList<Option>>(){});
+            options = GsonUtil.readObjectHoldersList(optionsJson, Option.class, new TypeToken<ArrayList<Option>>() {});
         }
         catch(JsonParseException e)
         {

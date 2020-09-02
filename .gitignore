@@ -1,0 +1,14 @@
+/.gradle/
+/.idea/
+/.mixin.out/
+/build/
+/config/
+/Jums Dev Lib/
+/logs/
+/mods/
+/out/
+/resourcepacks/
+/saves/
+/options.txt
+/usercache.json
+/usernamecache.json
