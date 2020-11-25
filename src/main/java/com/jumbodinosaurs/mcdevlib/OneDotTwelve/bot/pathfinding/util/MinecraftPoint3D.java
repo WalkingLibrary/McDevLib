@@ -58,11 +58,6 @@ public class MinecraftPoint3D extends Point3D
         return "{ X: " + getX() + ", Y: " + getY() + ", Z: " + getZ() + "}";
     }
     
-    public MinecraftPoint3D getOneBelow()
-    {
-        return (MinecraftPoint3D) differenceY(-1);
-    }
-    
     public boolean isSameBlockPos(MinecraftPoint3D wayPoint)
     {
         return this.toBlockPos().equals(wayPoint.toBlockPos());
