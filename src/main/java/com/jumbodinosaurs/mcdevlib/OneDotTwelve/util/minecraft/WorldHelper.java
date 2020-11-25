@@ -49,11 +49,11 @@ public class WorldHelper
         return tileEntities;
     }
     
-    public static boolean isLoaded(MinecraftPoint3D wayPoint)
+    public static boolean isLoaded(MinecraftPoint3D point)
     {
         for(Chunk chunk : getLoadedChunks())
         {
-            if(wayPoint.toChunkCoord().equals(chunk.getPos()))
+            if(point.toChunkCoord().equals(chunk.getPos()))
             {
                 return true;
             }
@@ -90,7 +90,7 @@ public class WorldHelper
     
     public static Chunk getPlayersChunk()
     {
-        return getWorld().getChunkFromBlockCoords(MinecraftPoint3D.toBlockPos(PlayerHelper.getPlayerPositionAsWayPointROUNDED()));
+        return getWorld().getChunkFromBlockCoords(MinecraftPoint3D.toBlockPos(PlayerHelper.getPlayerPositionAsMinecraftPoint3DROUNDED()));
     }
     
     

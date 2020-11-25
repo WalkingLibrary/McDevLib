@@ -47,16 +47,16 @@ public class PlayerHelper
         return getMotionY() > -0.0784000015258789;
     }
     
-    public static void rightClick(MinecraftPoint3D wayPoint)
+    public static void rightClick(MinecraftPoint3D point)
     {
-        
+    
         EnumActionResult enumactionresult = getPlayerController().processRightClickBlock(getPlayer(),
                                                                                          WorldHelper.getWorld(),
-                                                                                         wayPoint.toBlockPos(),
+                                                                                         point.toBlockPos(),
                                                                                          getFacing(),
                                                                                          getLookVector(),
                                                                                          EnumHand.MAIN_HAND);
-        
+    
         if(enumactionresult == EnumActionResult.SUCCESS)
         {
             getPlayer().swingArm(EnumHand.MAIN_HAND);
@@ -133,17 +133,17 @@ public class PlayerHelper
     }
     
     
-    public static MinecraftPoint3D getPlayerPositionAsWayPointSolidY()
+    public static MinecraftPoint3D getPlayerPositionAsMinecraftPoint3DSolidY()
     {
         return new MinecraftPoint3D(getX(), DevLibMathUtil.round(getY()), getZ());
     }
     
-    public static MinecraftPoint3D getPlayerPositionAsWayPointROUNDED()
+    public static MinecraftPoint3D getPlayerPositionAsMinecraftPoint3DROUNDED()
     {
         return new MinecraftPoint3D(getRoundedX(), getRoundedY(), getRoundedZ());
     }
     
-    public static MinecraftPoint3D getPlayerPositionAsWayPoint()
+    public static MinecraftPoint3D getPlayerPositionAsMinecraftPoint3D()
     {
         return new MinecraftPoint3D(getX(), getY(), getZ());
     }
