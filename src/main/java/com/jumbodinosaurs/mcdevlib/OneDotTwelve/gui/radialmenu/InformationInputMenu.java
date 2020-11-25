@@ -1,12 +1,12 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu;
 
 
+import com.jumbodinosaurs.devlib.util.objects.Point2D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.Button;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial.CenteredTextField;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.interfaces.IInteractive;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.Circle2D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.objects.Point;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -28,20 +28,19 @@ public class InformationInputMenu extends GuiScreen
     }
     
     
-    
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    public void drawScreen(int mouseX, int mouseZ, float partialTicks)
     {
-        super.drawScreen(mouseX, mouseY, partialTicks);
+        super.drawScreen(mouseX, mouseZ, partialTicks);
         drawDefaultBackground();
         ScaledResolution resolution = new ScaledResolution(GameHelper.getInstance());
         int centerX = (resolution.getScaledWidth() / 2);
-        int centerY = (resolution.getScaledHeight() / 2);
-        Point centerPoint = new Point(centerX, centerY);
-        Point mousePoint = new Point(mouseX,mouseY);
+        int centerZ = (resolution.getScaledHeight() / 2);
+        Point2D centerPoint = new Point2D(centerX, centerZ);
+        Point2D mousePoint = new Point2D(mouseX, mouseZ);
         
         
-        for(int i = 0 ; i < this.buttons.size(); i++)
+        for(int i = 0; i < this.buttons.size(); i++)
         {
             Button current = this.buttons.get(i);
             current.draw(centerPoint);
@@ -58,15 +57,16 @@ public class InformationInputMenu extends GuiScreen
     }
     
     @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+    protected void mouseClicked(int mouseX, int mouseZ, int mouseButton)
+            throws IOException
     {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
+        super.mouseClicked(mouseX, mouseZ, mouseButton);
         
         ScaledResolution resolution = new ScaledResolution(GameHelper.getInstance());
         int centerX = (resolution.getScaledWidth() / 2);
-        int centerY = (resolution.getScaledHeight() / 2);
-        Point mousePoint = new Point(mouseX,mouseY);
-        for(int i = 0 ; i < this.buttons.size(); i++)
+        int centerZ = (resolution.getScaledHeight() / 2);
+        Point2D mousePoint = new Point2D(mouseX, mouseZ);
+        for(int i = 0; i < this.buttons.size(); i++)
         {
             Button current = this.buttons.get(i);
             current.onScreenClick(mousePoint, mouseButton);
@@ -89,9 +89,9 @@ public class InformationInputMenu extends GuiScreen
     }
     
     @Override
-    protected void handleComponentHover(ITextComponent component, int x, int y)
+    protected void handleComponentHover(ITextComponent component, int x, int z)
     {
-        super.handleComponentHover(component, x, y);
+        super.handleComponentHover(component, x, z);
         
     }
     

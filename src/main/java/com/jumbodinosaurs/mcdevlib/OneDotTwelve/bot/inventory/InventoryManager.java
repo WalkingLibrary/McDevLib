@@ -3,7 +3,7 @@ package com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.inventory;
 
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.inventory.exceptions.NoContainerOpenException;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.inventory.exceptions.NoItemException;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.MinecraftPoint3D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.ItemStackHelper;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.PlayerHelper;
@@ -209,9 +209,9 @@ public class InventoryManager
     }
     
     
-    public synchronized static void openContainer(WayPoint wayPoint)
+    public synchronized static void openContainer(MinecraftPoint3D wayPoint)
     {
-       
+        
         PlayerHelper.rightClick(wayPoint);
     }
     

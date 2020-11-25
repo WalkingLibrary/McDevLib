@@ -1,7 +1,7 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft;
 
 import com.jumbodinosaurs.devlib.math.DevLibMathUtil;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.MinecraftPoint3D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -47,7 +47,7 @@ public class PlayerHelper
         return getMotionY() > -0.0784000015258789;
     }
     
-    public static void rightClick(WayPoint wayPoint)
+    public static void rightClick(MinecraftPoint3D wayPoint)
     {
         
         EnumActionResult enumactionresult = getPlayerController().processRightClickBlock(getPlayer(),
@@ -133,19 +133,19 @@ public class PlayerHelper
     }
     
     
-    public static WayPoint getPlayerPositionAsWayPointSolidY()
+    public static MinecraftPoint3D getPlayerPositionAsWayPointSolidY()
     {
-        return new WayPoint(getX(), DevLibMathUtil.round(getY()), getZ());
+        return new MinecraftPoint3D(getX(), DevLibMathUtil.round(getY()), getZ());
     }
     
-    public static WayPoint getPlayerPositionAsWayPointROUNDED()
+    public static MinecraftPoint3D getPlayerPositionAsWayPointROUNDED()
     {
-        return new WayPoint(getRoundedX(), getRoundedY(), getRoundedZ());
+        return new MinecraftPoint3D(getRoundedX(), getRoundedY(), getRoundedZ());
     }
     
-    public static WayPoint getPlayerPositionAsWayPoint()
+    public static MinecraftPoint3D getPlayerPositionAsWayPoint()
     {
-        return new WayPoint(getX(), getY(), getZ());
+        return new MinecraftPoint3D(getX(), getY(), getZ());
     }
     
     

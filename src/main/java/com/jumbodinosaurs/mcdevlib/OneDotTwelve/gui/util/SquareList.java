@@ -1,6 +1,6 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.util;
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.MinecraftPoint3D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.objects.Square;
 
 import java.awt.*;
@@ -20,13 +20,13 @@ public class SquareList
         this.color = Color.YELLOW;
     }
     
-    public void add(WayPoint wayPoint)
+    public void add(MinecraftPoint3D wayPoint)
     {
         if(this.squares.containsKey(wayPoint.toHashString()))
         {
             this.remove(wayPoint);
         }
-    
+        
         Square newSquare = new Square(wayPoint, this.alignWithGrid, this.width, this.color);
         newSquare.generate();
         newSquare.draw();
@@ -34,7 +34,7 @@ public class SquareList
         this.squares.put(wayPoint.toHashString(), newSquare);
     }
     
-    public void add(WayPoint wayPoint, Color color)
+    public void add(MinecraftPoint3D wayPoint, Color color)
     {
         
         
@@ -42,19 +42,19 @@ public class SquareList
         {
             this.remove(wayPoint);
         }
-    
+        
         Square newSquare = new Square(wayPoint, this.alignWithGrid, this.width, color);
         newSquare.generate();
         newSquare.draw();
         this.squares.put(wayPoint.toHashString(), newSquare);
     }
     
-    public void remove(WayPoint wayPoint)
+    public void remove(MinecraftPoint3D wayPoint)
     {
         if(this.squares.containsKey(wayPoint.toHashString()))
         {
-           Square squareToRemove = this.squares.remove(wayPoint.toHashString());
-           squareToRemove.erase();
+            Square squareToRemove = this.squares.remove(wayPoint.toHashString());
+            squareToRemove.erase();
         }
     }
     

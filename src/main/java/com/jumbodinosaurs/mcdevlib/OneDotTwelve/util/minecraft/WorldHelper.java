@@ -1,7 +1,7 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft;
 
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.Direction;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.MinecraftPoint3D;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
@@ -49,7 +49,7 @@ public class WorldHelper
         return tileEntities;
     }
     
-    public static boolean isLoaded(WayPoint wayPoint)
+    public static boolean isLoaded(MinecraftPoint3D wayPoint)
     {
         for(Chunk chunk : getLoadedChunks())
         {
@@ -90,13 +90,13 @@ public class WorldHelper
     
     public static Chunk getPlayersChunk()
     {
-        return getWorld().getChunkFromBlockCoords(WayPoint.toBlockPos(PlayerHelper.getPlayerPositionAsWayPointROUNDED()));
+        return getWorld().getChunkFromBlockCoords(MinecraftPoint3D.toBlockPos(PlayerHelper.getPlayerPositionAsWayPointROUNDED()));
     }
     
     
-    public synchronized static WayPoint getClosest(WayPoint contextPoint, Block block)
+    public synchronized static MinecraftPoint3D getClosest(MinecraftPoint3D contextPoint, Block block)
     {
-        ArrayList<WayPoint> nodePoints = new ArrayList<WayPoint>();
+        ArrayList<MinecraftPoint3D> nodePoints = new ArrayList<MinecraftPoint3D>();
         for(Chunk chunk : getLoadedChunks())
         {
             if(chunk != null)
@@ -104,12 +104,13 @@ public class WorldHelper
                 nodePoints.addAll(checkChunk(chunk, block));
             }
         }
-        WayPoint closestBlock = null;
-        for(WayPoint pointToCheck : nodePoints)
+        MinecraftPoint3D closestBlock = null;
+        for(MinecraftPoint3D pointToCheck : nodePoints)
         {
-            if(closestBlock == null || (closestBlock != null && pointToCheck.getNoSqRtEuclideanDistance(contextPoint) < closestBlock
-                                                                                                                                .getNoSqRtEuclideanDistance(
-                                                                                                                                        contextPoint)))
+            if(closestBlock == null ||
+               (closestBlock != null &&
+                pointToCheck.getNoSqRtEuclideanDistance(contextPoint) <
+                closestBlock.getNoSqRtEuclideanDistance(contextPoint)))
             {
                 closestBlock = pointToCheck;
             }
@@ -117,11 +118,11 @@ public class WorldHelper
         return closestBlock;
     }
     
-    public synchronized static WayPoint getClosest(WayPoint contextPoint,
-                                                   Block block,
-                                                   ArrayList<WayPoint> pointsToAvoid)
+    public synchronized static MinecraftPoint3D getClosest(MinecraftPoint3D contextPoint,
+                                                           Block block,
+                                                           ArrayList<MinecraftPoint3D> pointsToAvoid)
     {
-        ArrayList<WayPoint> nodePoints = new ArrayList<WayPoint>();
+        ArrayList<MinecraftPoint3D> nodePoints = new ArrayList<MinecraftPoint3D>();
         for(Chunk chunk : getLoadedChunks())
         {
             if(chunk != null)
@@ -129,17 +130,18 @@ public class WorldHelper
                 nodePoints.addAll(checkChunk(chunk, block));
             }
         }
-        WayPoint closestBlock = null;
-        for(WayPoint pointToCheck : nodePoints)
+        MinecraftPoint3D closestBlock = null;
+        for(MinecraftPoint3D pointToCheck : nodePoints)
         {
-            if(closestBlock == null || (closestBlock != null && pointToCheck.getNoSqRtEuclideanDistance(contextPoint) < closestBlock
-                                                                                                                                .getNoSqRtEuclideanDistance(
-                                                                                                                                        contextPoint)))
+            if(closestBlock == null ||
+               (closestBlock != null &&
+                pointToCheck.getNoSqRtEuclideanDistance(contextPoint) <
+                closestBlock.getNoSqRtEuclideanDistance(contextPoint)))
             {
                 boolean isInPointsToAvoid = false;
                 for(int i = 0; i < pointsToAvoid.size(); i++)
                 {
-                    WayPoint pointToAvoid = pointsToAvoid.get(i);
+                    MinecraftPoint3D pointToAvoid = pointsToAvoid.get(i);
                     if(pointToCheck.toAlignedCoord().equals(pointToAvoid.toAlignedCoord()))
                     {
                         isInPointsToAvoid = true;
@@ -155,11 +157,11 @@ public class WorldHelper
     }
     
     
-    public synchronized static WayPoint getClosestFullyGrownCrop(WayPoint contextPoint,
-                                                                 ArrayList<WayPoint> pointsToAvoid)
+    public synchronized static MinecraftPoint3D getClosestFullyGrownCrop(MinecraftPoint3D contextPoint,
+                                                                         ArrayList<MinecraftPoint3D> pointsToAvoid)
     {
         Block crops = Block.REGISTRY.getObjectById(59);
-        ArrayList<WayPoint> nodePoints = new ArrayList<WayPoint>();
+        ArrayList<MinecraftPoint3D> nodePoints = new ArrayList<MinecraftPoint3D>();
         for(Chunk chunk : getLoadedChunks())
         {
             if(chunk != null)
@@ -168,19 +170,20 @@ public class WorldHelper
             }
         }
         
-        WayPoint closestBlock = null;
-        for(WayPoint pointToCheck : nodePoints)
+        MinecraftPoint3D closestBlock = null;
+        for(MinecraftPoint3D pointToCheck : nodePoints)
         {
-            if(closestBlock == null || (closestBlock != null && pointToCheck.getNoSqRtEuclideanDistance(contextPoint) < closestBlock
-                                                                                                                                .getNoSqRtEuclideanDistance(
-                                                                                                                                        contextPoint)))
+            if(closestBlock == null ||
+               (closestBlock != null &&
+                pointToCheck.getNoSqRtEuclideanDistance(contextPoint) <
+                closestBlock.getNoSqRtEuclideanDistance(contextPoint)))
             {
                 if((((BlockCrops) crops).isMaxAge(getBlockStateAt(pointToCheck.toBlockPos()))))
                 {
                     boolean isInPointsToAvoid = false;
                     for(int i = 0; i < pointsToAvoid.size(); i++)
                     {
-                        WayPoint pointToAvoid = pointsToAvoid.get(i);
+                        MinecraftPoint3D pointToAvoid = pointsToAvoid.get(i);
                         if(pointToCheck.toAlignedCoord().equals(pointToAvoid.toAlignedCoord()))
                         {
                             isInPointsToAvoid = true;
@@ -247,9 +250,9 @@ public class WorldHelper
     }
     
     
-    public static ArrayList<WayPoint> checkChunk(Chunk chunk, Block block)
+    public static ArrayList<MinecraftPoint3D> checkChunk(Chunk chunk, Block block)
     {
-        ArrayList<WayPoint> points = new ArrayList<WayPoint>();
+        ArrayList<MinecraftPoint3D> points = new ArrayList<MinecraftPoint3D>();
         int x, z;
         x = chunk.x;
         z = chunk.z;
@@ -263,7 +266,7 @@ public class WorldHelper
                     Block currentBlock = chunk.getBlockState(blockPos).getBlock();
                     if(currentBlock.getUnlocalizedName().equals(block.getUnlocalizedName()))
                     {
-                        points.add(new WayPoint(blockPos));
+                        points.add(new MinecraftPoint3D(blockPos));
                     }
                     
                 }

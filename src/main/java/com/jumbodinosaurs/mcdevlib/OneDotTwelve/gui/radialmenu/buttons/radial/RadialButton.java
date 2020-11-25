@@ -1,12 +1,12 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial;
 
 
+import com.jumbodinosaurs.devlib.util.objects.Point2D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.RadialMenuUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.interfaces.IClickableRadial;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.LabelCon;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.util.TextDrawer;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.objects.Point;
 import org.lwjgl.opengl.GL11;
 
 public class RadialButton extends CircularButton implements IClickableRadial
@@ -28,13 +28,13 @@ public class RadialButton extends CircularButton implements IClickableRadial
     
     
     @Override
-    public void updateCenterPoint(Point screenCenter)
+    public void updateCenterPoint(Point2D screenCenter)
     {
         setCenterPoint(screenCenter);
     }
     
     @Override
-    public boolean isInClickableSpace(Point mouseLocation)
+    public boolean isInClickableSpace(Point2D mouseLocation)
     {
         double distanceDifference = getCenterPoint().getEuclideanDistance(mouseLocation);
         if(drawCentered)
@@ -53,12 +53,12 @@ public class RadialButton extends CircularButton implements IClickableRadial
             return false;
         }
         
-        double yTranslation = getCenterPoint().getY();
+        double zTranslation = getCenterPoint().getZ();
         double clickedPointsX = mouseLocation.getX();
-        double clickedPointsY = mouseLocation.getY();
+        double clickedPointsZ = mouseLocation.getZ();
         double radius = distanceDifference;
         double revertToDegreesAmount = 180 / Math.PI;
-        double pointsDegree = (Math.asin((clickedPointsY - yTranslation) / radius) * revertToDegreesAmount);
+        double pointsDegree = (Math.asin((clickedPointsZ - zTranslation) / radius) * revertToDegreesAmount);
         
         if(clickedPointsX >= getCenterPoint().getX())
         {
@@ -94,11 +94,11 @@ public class RadialButton extends CircularButton implements IClickableRadial
     
     
     @Override
-    public void draw(Point screenCenter)
+    public void draw(Point2D screenCenter)
     {
         super.draw(screenCenter);
         int centerX = (int) screenCenter.getX();
-        int centerY = (int) screenCenter.getY();
+        int centerZ = (int) screenCenter.getZ();
         
         int iconDrawX, iconDrawY;
         int labelDrawX, labelDrawY;
@@ -107,7 +107,7 @@ public class RadialButton extends CircularButton implements IClickableRadial
         {
             
             iconDrawX = centerX;
-            iconDrawY = centerY;
+            iconDrawY = centerZ;
             
             labelDrawX = iconDrawX;
             //offset for icon size
@@ -129,7 +129,7 @@ public class RadialButton extends CircularButton implements IClickableRadial
              *   latsY = (radius * Math.sin(radium)) + y;
              * */
             iconDrawX = (int) (drawRadius * Math.cos(drawDegree * radiansConversion)) + centerX;
-            iconDrawY = (int) (drawRadius * Math.sin(drawDegree * radiansConversion)) + centerY;
+            iconDrawY = (int) (drawRadius * Math.sin(drawDegree * radiansConversion)) + centerZ;
             
             labelDrawX = iconDrawX;
             
@@ -179,7 +179,7 @@ public class RadialButton extends CircularButton implements IClickableRadial
         
     }
     
-    public void drawFirstDegreeLine(Point center)
+    public void drawFirstDegreeLine(Point2D center)
     {
         /* Drawing the First Degree Line
          * Get Two Points To Draw The Line
@@ -197,13 +197,17 @@ public class RadialButton extends CircularButton implements IClickableRadial
          * We also Translate The Circle based off of our Center x and y
          * We add 270 to the first degree so that the Line starts at the top for degree 0
          *  */
-        double innerX, innerY, outerX, outerY;
+        double innerX, innerZ, outerX, outerZ;
         double radiansConversion = Math.PI / 180;
         int removedAmount = 3;
-        innerX = (((subCircleRadius + removedAmount) * Math.cos((getFirstDegree() + 270) * radiansConversion)) + center.getX());
-        innerY = (((subCircleRadius + removedAmount) * Math.sin((getFirstDegree() + 270) * radiansConversion)) + center.getY());
-        outerX = (((circleRadius - removedAmount) * Math.cos((getFirstDegree() + 270) * radiansConversion)) + center.getX());
-        outerY = (((circleRadius - removedAmount) * Math.sin((getFirstDegree() + 270) * radiansConversion)) + center.getY());
+        innerX = (((subCircleRadius + removedAmount) * Math.cos((getFirstDegree() + 270) * radiansConversion)) +
+                  center.getX());
+        innerZ = (((subCircleRadius + removedAmount) * Math.sin((getFirstDegree() + 270) * radiansConversion)) +
+                  center.getZ());
+        outerX = (((circleRadius - removedAmount) * Math.cos((getFirstDegree() + 270) * radiansConversion)) +
+                  center.getX());
+        outerZ = (((circleRadius - removedAmount) * Math.sin((getFirstDegree() + 270) * radiansConversion)) +
+                  center.getZ());
         
         
         //Use GL11 To Draw The Line
@@ -215,8 +219,8 @@ public class RadialButton extends CircularButton implements IClickableRadial
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBegin(GL11.GL_LINES);
         GL11.glColor3d(0, 0, 0);
-        GL11.glVertex2d(innerX, innerY);
-        GL11.glVertex2d(outerX, outerY);
+        GL11.glVertex2d(innerX, innerZ);
+        GL11.glVertex2d(outerX, outerZ);
         GL11.glEnd();
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_TEXTURE_2D);

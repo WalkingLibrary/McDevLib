@@ -1,22 +1,21 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.objects;
 
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.MinecraftPoint3D;
 
 import java.awt.*;
 
 public class Line
 {
-    private WayPoint pointOne;
-    private WayPoint pointTwo;
+    private MinecraftPoint3D pointOne;
+    private MinecraftPoint3D pointTwo;
     private boolean needsDepth;
     private Color color;
     private float width;
     private static final float defaultWidth = 50f;
     
-   
     
-    public Line(WayPoint pointOne, WayPoint pointTwo, Color color)
+    public Line(MinecraftPoint3D pointOne, MinecraftPoint3D pointTwo, Color color)
     {
         this.pointOne = pointOne;
         this.pointTwo = pointTwo;
@@ -25,23 +24,23 @@ public class Line
         this.needsDepth = false;
     }
     
-   
-    public WayPoint getPointOne()
+    
+    public MinecraftPoint3D getPointOne()
     {
         return pointOne;
     }
     
-    public void setPointOne(WayPoint pointOne)
+    public void setPointOne(MinecraftPoint3D pointOne)
     {
         this.pointOne = pointOne;
     }
     
-    public WayPoint getPointTwo()
+    public MinecraftPoint3D getPointTwo()
     {
         return pointTwo;
     }
     
-    public void setPointTwo(WayPoint pointTwo)
+    public void setPointTwo(MinecraftPoint3D pointTwo)
     {
         this.pointTwo = pointTwo;
     }

@@ -1,7 +1,7 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.util;
 
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.MinecraftPoint3D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.objects.Cube;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.WorldHelper;
 import net.minecraft.block.Block;
@@ -22,14 +22,14 @@ public class CubeList
     }
     
     
-    public  void add(WayPoint wayPoint, Color color)
+    public void add(MinecraftPoint3D wayPoint, Color color)
     {
-    
+        
         wayPoint = this.transformWayPoint(wayPoint);
         Cube newCube = new Cube(wayPoint, true, color);
         //Check for duplicates
         boolean needToAdd = true;
-        for(int i = 0 ; i < this.cubes.size(); i++)
+        for(int i = 0; i < this.cubes.size(); i++)
         {
             Cube currentCube = this.cubes.get(i);
             if(currentCube.equals(newCube))
@@ -46,12 +46,12 @@ public class CubeList
         }
     }
     
-    public  void remove(WayPoint wayPoint, Color color)
+    public void remove(MinecraftPoint3D wayPoint, Color color)
     {
         wayPoint = this.transformWayPoint(wayPoint);
         Cube newCube = new Cube(wayPoint, true, color);
         //Check for duplicates
-        for(int i = 0 ; i < this.cubes.size(); i++)
+        for(int i = 0; i < this.cubes.size(); i++)
         {
             Cube currentCube = this.cubes.get(i);
             if(currentCube.equals(newCube))
@@ -89,7 +89,7 @@ public class CubeList
         for(int i = 0; i < cubes.size(); i++)
         {
             Cube cube = cubes.get(i);
-            WayPoint contextPoint = cube.getContextPoint();
+            MinecraftPoint3D contextPoint = cube.getContextPoint();
             //if the highlighted cube is in the unloaded chunks x range
             if(contextPoint.getX() > x && contextPoint.getX() < x + 16)
             {
@@ -121,7 +121,7 @@ public class CubeList
         }
     }
     
-    public  void remove(WayPoint wayPoint)
+    public void remove(MinecraftPoint3D wayPoint)
     {
         wayPoint = this.transformWayPoint(wayPoint);
         for(int i = 0; i < this.cubes.size(); i++)
@@ -147,7 +147,7 @@ public class CubeList
         }
     }
     
-    public  WayPoint transformWayPoint(WayPoint wayPoint)
+    public MinecraftPoint3D transformWayPoint(MinecraftPoint3D wayPoint)
     {
         if(this.alignWithGrid)
         {
@@ -155,7 +155,7 @@ public class CubeList
         }
         else
         {
-            return  wayPoint;
+            return wayPoint;
         }
     }
 }

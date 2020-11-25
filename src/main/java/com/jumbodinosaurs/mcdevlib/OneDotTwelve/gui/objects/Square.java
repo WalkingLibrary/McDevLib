@@ -1,18 +1,18 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.objects;
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.MinecraftPoint3D;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Square extends LineObject
 {
-    private WayPoint contextPoint;
+    private MinecraftPoint3D contextPoint;
     private boolean alignWithGrid;
     private int width;
     private Color color;
     
-    public Square(WayPoint contextPoint, boolean alignWithGrid, int width, Color color)
+    public Square(MinecraftPoint3D contextPoint, boolean alignWithGrid, int width, Color color)
     {
         this.contextPoint = contextPoint;
         this.alignWithGrid = alignWithGrid;
@@ -36,11 +36,11 @@ public class Square extends LineObject
             y = this.contextPoint.getY();
             z = this.contextPoint.getZ();
         }
-        
-        WayPoint point1 = new WayPoint(x, y, z);
-        WayPoint point2 = new WayPoint(x + this.width, y, z);
-        WayPoint point3 = new WayPoint(x, y, z + this.width);
-        WayPoint point4 = new WayPoint(x + this.width, y, z + this.width);
+    
+        MinecraftPoint3D point1 = new MinecraftPoint3D(x, y, z);
+        MinecraftPoint3D point2 = new MinecraftPoint3D(x + this.width, y, z);
+        MinecraftPoint3D point3 = new MinecraftPoint3D(x, y, z + this.width);
+        MinecraftPoint3D point4 = new MinecraftPoint3D(x + this.width, y, z + this.width);
     
         ArrayList<Line> linesToAdd = new ArrayList<Line>();
         linesToAdd.add(new Line(point1, point2, this.color));
@@ -64,12 +64,12 @@ public class Square extends LineObject
         }
     }
     
-    public WayPoint getContextPoint()
+    public MinecraftPoint3D getContextPoint()
     {
         return contextPoint;
     }
     
-    public void setContextPoint(WayPoint contextPoint)
+    public void setContextPoint(MinecraftPoint3D contextPoint)
     {
         this.contextPoint = contextPoint;
     }

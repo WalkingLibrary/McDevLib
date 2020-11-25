@@ -1,13 +1,13 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.buttons.radial;
 
 
+import com.jumbodinosaurs.devlib.util.objects.Point2D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.util.LabelCon;
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.objects.Point;
 
 public abstract class CircularButton extends IconButton
 {
     private int radius;
-    private Point centerPoint;
+    private Point2D centerPoint;
     
     public CircularButton(LabelCon labelCon, int radius)
     {
@@ -15,21 +15,17 @@ public abstract class CircularButton extends IconButton
         this.radius = radius;
     }
     
-    public abstract void updateCenterPoint(Point screenCenter);
+    public abstract void updateCenterPoint(Point2D screenCenter);
     
     @Override
-    public boolean isInClickableSpace(Point mouseLocation)
+    public boolean isInClickableSpace(Point2D mouseLocation)
     {
         double pointDifference = centerPoint.getEuclideanDistance(mouseLocation);
-        if(pointDifference < (double) this.radius)
-        {
-            return true;
-        }
-        return false;
+        return pointDifference < (double) this.radius;
     }
     
     @Override
-    public void draw(Point screenCenter)
+    public void draw(Point2D screenCenter)
     {
         super.draw(screenCenter);
         updateCenterPoint(screenCenter);
@@ -46,12 +42,12 @@ public abstract class CircularButton extends IconButton
         this.radius = radius;
     }
     
-    public Point getCenterPoint()
+    public Point2D getCenterPoint()
     {
         return centerPoint;
     }
     
-    public void setCenterPoint(Point centerPoint)
+    public void setCenterPoint(Point2D centerPoint)
     {
         this.centerPoint = centerPoint;
     }

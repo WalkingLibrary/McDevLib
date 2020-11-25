@@ -8,11 +8,11 @@ public class PathFindingUtil
     
     
     //returns the direction from point one to point two.
-    public static Direction getDirectionDifference(WayPoint pointOne, WayPoint pointTwo)
+    public static Direction getDirectionDifference(MinecraftPoint3D pointOne, MinecraftPoint3D pointTwo)
     {
         double z = pointOne.getZ() - pointTwo.getZ();
         double x = pointOne.getX() - pointTwo.getX();
-        
+    
         if(z != 0)
         {
             if(z != Math.abs(z))
@@ -55,9 +55,11 @@ public class PathFindingUtil
     }
     
     
-    public static WayPoint getDirectionalEdgeWayPoint(WayPoint wayPoint, Direction direction, double middleOffset)
+    public static MinecraftPoint3D getDirectionalEdgeWayPoint(MinecraftPoint3D wayPoint,
+                                                              Direction direction,
+                                                              double middleOffset)
     {
-        WayPoint pointToReturn;
+        MinecraftPoint3D pointToReturn;
         double x, z;
         
         if(wayPoint.getX() == 0)
@@ -79,7 +81,7 @@ public class PathFindingUtil
         }
         
         
-        return new WayPoint(x == 0 ? .5 : x, wayPoint.getY(), z == 0 ? .5 : z);
+        return new MinecraftPoint3D(x == 0 ? .5 : x, wayPoint.getY(), z == 0 ? .5 : z);
         
         
     }
@@ -96,9 +98,9 @@ public class PathFindingUtil
     
     //.7
     //.3
-    public static WayPoint getDirectionalEdgeWayPointDefault(WayPoint wayPoint, Direction direction)
+    public static MinecraftPoint3D getDirectionalEdgeWayPointDefault(MinecraftPoint3D wayPoint, Direction direction)
     {
-        WayPoint pointToReturn;
+        MinecraftPoint3D pointToReturn;
         double x, z;
         
         if(wayPoint.getX() == 0)
@@ -120,7 +122,7 @@ public class PathFindingUtil
         }
         
         
-        return new WayPoint(x == 0 ? .5 : x, wayPoint.getY(), z == 0 ? .5 : z);
+        return new MinecraftPoint3D(x == 0 ? .5 : x, wayPoint.getY(), z == 0 ? .5 : z);
         
         
     }
@@ -135,19 +137,21 @@ public class PathFindingUtil
     }
     
     
-    public static WayPoint getWayPointInDirectionFrom(WayPoint contextPoint, Direction direction, double amount)
+    public static MinecraftPoint3D getWayPointInDirectionFrom(MinecraftPoint3D contextPoint,
+                                                              Direction direction,
+                                                              double amount)
     {
         double x, y, z;
         x = contextPoint.getX() + (direction.x * amount);
         y = contextPoint.getY();
         z = contextPoint.getZ() + (direction.z * amount);
-        WayPoint newPoint = new WayPoint(x, y, z);
+        MinecraftPoint3D newPoint = new MinecraftPoint3D(x, y, z);
         return newPoint;
     }
     
-    public static WayPoint getBlockMiddle(WayPoint wayPoint)
+    public static MinecraftPoint3D getBlockMiddle(MinecraftPoint3D wayPoint)
     {
-        WayPoint wayPointTemp = wayPoint.toAlignedCoord();
+        MinecraftPoint3D wayPointTemp = wayPoint.toAlignedCoord();
         double x, z;
         x = (int) wayPointTemp.getX();
         z = (int) wayPointTemp.getZ();
@@ -156,12 +160,12 @@ public class PathFindingUtil
         x = x + .5;
         z = z + .5;
         
-        return new WayPoint(x, wayPoint.getY(), z);
+        return new MinecraftPoint3D(x, wayPoint.getY(), z);
         
     }
     
     
-    public static Quadrant getQuadrant(WayPoint wayPoint)
+    public static Quadrant getQuadrant(MinecraftPoint3D wayPoint)
     {
         boolean isXPositive, isZPositive;
         isXPositive = wayPoint.getX() >= 0;

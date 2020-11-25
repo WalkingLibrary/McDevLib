@@ -1,68 +1,33 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util;
 
+import com.jumbodinosaurs.devlib.util.objects.Point2D;
 import net.minecraft.util.math.ChunkPos;
 
 import java.util.ArrayList;
 
-public class ChunkCoord
+public class ChunkCoord extends Point2D
 {
-    private int x;
-    private int z;
     
-    public ChunkCoord(int x, int z)
+    
+    public ChunkCoord(double x, double z)
     {
-        this.x = x;
-        this.z = z;
+        super(x, z);
     }
     
-    
-    public int getX()
-    {
-        return x;
-    }
-    
-    public void setX(int x)
-    {
-        this.x = x;
-    }
-    
-    public int getZ()
-    {
-        return z;
-    }
-    
-    public void setZ(int z)
-    {
-        this.z = z;
-    }
-    
-    public ChunkCoord addX(int amount)
-    {
-        return new ChunkCoord(this.x + amount, this.z);
-    }
-    
-    public ChunkCoord addZ(int amount)
-    {
-        return new ChunkCoord(this.x, this.z + amount);
-    }
-    
-    public ArrayList<ChunkCoord> getAdjacentCoords()
+    @Override
+    public ArrayList<ChunkCoord> getNeighbors()
     {
         ArrayList<ChunkCoord> neighbors = new ArrayList<ChunkCoord>();
         for(Direction direction : Direction.values())
         {
             if(!direction.equals(Direction.SAMEPOINT))
             {
-                neighbors.add(this.addX(direction.x).addZ(direction.z));
+                neighbors.add((ChunkCoord) this.differenceX(direction.x).differenceZ(direction.z));
             }
         }
         return neighbors;
     }
     
-    public double getEuclideanDistance(ChunkCoord chunkCoord)
-    {
-        return Math.sqrt(Math.pow(getX() - chunkCoord.getX(), 2) + (Math.pow(getZ() - chunkCoord.getZ(), 2)));
-    }
     
     public boolean equals(ChunkCoord chunkCoord)
     {

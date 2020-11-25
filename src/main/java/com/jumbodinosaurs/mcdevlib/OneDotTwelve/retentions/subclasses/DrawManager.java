@@ -1,7 +1,7 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.subclasses;
 
 
-import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.WayPoint;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util.MinecraftPoint3D;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.objects.Line;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.Retention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
@@ -76,15 +76,15 @@ public class DrawManager extends Retention
             GL11.glEnable(GL11.GL_BLEND);
             Color currentColor = currentLine.getColor();
             GL11.glColor3d(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue());
-            
+    
             double xTranslation = GameHelper.getInstance().getRenderManager().renderPosX;
             double yTranslation = GameHelper.getInstance().getRenderManager().renderPosY;
             double zTranslation = GameHelper.getInstance().getRenderManager().renderPosZ;
             GL11.glBegin(GL11.GL_LINES);
-            
-            
-            WayPoint pointOne = currentLine.getPointOne();
-            WayPoint pointTwo = currentLine.getPointTwo();
+    
+    
+            MinecraftPoint3D pointOne = currentLine.getPointOne();
+            MinecraftPoint3D pointTwo = currentLine.getPointTwo();
             GL11.glVertex3d(pointOne.getX() - xTranslation,
                             pointOne.getY() - yTranslation,
                             pointOne.getZ() - zTranslation);
