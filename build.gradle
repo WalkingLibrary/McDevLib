@@ -85,7 +85,7 @@ reobf {
 
 shadowJar {
     dependencies {
-        include(dependency('com.github.WalkingLibrary:Dev-Lib:1.+'))
+        include(dependency('com.github.WalkingLibrary:Java-Dev-Lib:-SNAPSHOT'))
         include(dependency('com.github.classgraph:classgraph:28b32ec'))
         include(dependency('org.spongepowered:mixin'))
 
