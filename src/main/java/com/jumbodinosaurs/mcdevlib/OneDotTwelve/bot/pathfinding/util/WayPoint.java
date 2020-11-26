@@ -72,24 +72,6 @@ public class WayPoint
         {
             return new BlockPos(wayPoint.getX(), wayPoint.getY(), wayPoint.getZ());
         }
-        /*
-        WayPoint wayPointTemp = wayPoint.chop();
-        if(wayPointTemp.getX() == 0 || wayPointTemp.getZ() == 0)
-        {
-        
-        }
-        else if(!wayPoint.equals(wayPoint.chop()))
-        {
-            Quadrant quadrantOffSet = PathFindingUtil.getQuadrant(wayPointTemp);
-            return new BlockPos(wayPointTemp.getX() + quadrantOffSet.x,
-                                wayPointTemp.getY(),
-                                wayPointTemp.getZ() + quadrantOffSet.z);
-        }
-        else
-        {
-            return new BlockPos(wayPoint.getX(), wayPoint.getY(), wayPoint.getZ());
-        }
-        */
     }
     
     //Extra
@@ -141,38 +123,6 @@ public class WayPoint
         {
             return wayPoint;
         }
-        /*
-        if(wayPointChopped.getX() == 0 || wayPointChopped.getZ() == 0)
-        {
-            
-            if(wayPointChopped.getX() == 0)
-            {
-            
-            }
-            else
-            {
-            
-            }
-            
-            if(wayPointChopped.getZ() == 0)
-            {
-            
-            }
-        }
-        else if(!wayPoint.equals(wayPoint.chop()))
-        {
-            
-            return new WayPoint((int) wayPointChopped.getX() + quadrantOffSet.x,
-                                (int) wayPointChopped.getY(),
-                                (int) wayPointChopped.getZ() + quadrantOffSet.z);
-        }
-        else
-        {
-           return wayPoint;
-        }
-        */
-        
-        
     }
     
     public double getX()
