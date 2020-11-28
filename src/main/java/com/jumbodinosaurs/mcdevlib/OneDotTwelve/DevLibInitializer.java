@@ -6,12 +6,15 @@ import com.jumbodinosaurs.devlib.commands.MessageResponse;
 import com.jumbodinosaurs.devlib.commands.exceptions.WaveringParametersException;
 import com.jumbodinosaurs.devlib.util.GeneralUtil;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.radialmenu.MainMenuManager;
+import com.jumbodinosaurs.mcdevlib.OneDotTwelve.gui.text.CustomFontRenderManager;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.BindableRentention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.Retention;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.retentions.RetentionManager;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.settings.OptionsManager;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.DevLibKeyBindManager;
 import com.jumbodinosaurs.mcdevlib.OneDotTwelve.util.minecraft.GameHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -35,7 +38,8 @@ import java.io.File;
     @Mod.EventHandler
     public void preInit(FMLInitializationEvent event)
     {
-    
+        ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(
+                CustomFontRenderManager.scaleableRender);
     }
     
     

@@ -45,7 +45,10 @@ public class WorldHelper
     public static ArrayList<EntityPlayer> getPlayerEntities()
     {
         ArrayList<EntityPlayer> tileEntities = new ArrayList<EntityPlayer>();
-        tileEntities.addAll(getWorld().playerEntities);
+        if(getWorld() != null)
+        {
+            tileEntities.addAll(getWorld().playerEntities);
+        }
         return tileEntities;
     }
     

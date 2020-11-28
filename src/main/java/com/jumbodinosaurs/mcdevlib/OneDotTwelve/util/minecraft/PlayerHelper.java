@@ -149,6 +149,27 @@ public class PlayerHelper
     }
     
     
+    public static WayPoint getPlayersCrossAirWayPoint()
+    {
+        float yaw = getPlayer().rotationYaw;
+        float pitch = getPlayer().rotationPitch;
+        /*
+          0 -> 180
+          -180 -> 0
+          90 -> -90
+         */
+        
+        double crossAirX, crossAirY, crossAirZ;
+        
+        crossAirY = getPlayer().eyeHeight - (Math.sin(Math.toRadians(pitch)));
+        crossAirX = Math.cos(Math.toRadians(yaw + 90));
+        crossAirZ = Math.sin(Math.toRadians(yaw + 90));
+        WayPoint unitCirclePoint = new WayPoint(crossAirX, crossAirY, crossAirZ);
+        
+        WayPoint crossAirPoint = getPlayerPositionAsWayPoint();
+        return crossAirPoint.translateBy(unitCirclePoint);
+    }
+    
     public static boolean safeToCheck()
     {
         return Minecraft.getMinecraft() != null && Minecraft.getMinecraft().player != null;

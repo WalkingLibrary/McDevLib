@@ -25,6 +25,7 @@ public abstract class Retention
     
     public void toggleActive()
     {
+        RetentionManager.saveRetentions();
         this.active = !this.active;
     }
     

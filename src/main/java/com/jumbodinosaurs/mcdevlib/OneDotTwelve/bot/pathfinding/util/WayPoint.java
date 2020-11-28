@@ -1,5 +1,6 @@
 package com.jumbodinosaurs.mcdevlib.OneDotTwelve.bot.pathfinding.util;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
@@ -72,6 +73,24 @@ public class WayPoint
         {
             return new BlockPos(wayPoint.getX(), wayPoint.getY(), wayPoint.getZ());
         }
+    }
+    
+    public WayPoint translateBy(WayPoint wayPoint)
+    {
+        return new WayPoint(this.x + wayPoint.getX(), this.y + wayPoint.getY(), this.z + wayPoint.getZ());
+    }
+    
+    public WayPoint getEntityTranslated(Entity entity, float partialTicks)
+    {
+        double translatedPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double translatedPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double translatedPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+        
+        WayPoint translatePoint = new WayPoint(translatedPosX - entity.posX,
+                                               translatedPosY - entity.posY,
+                                               translatedPosZ - entity.posZ);
+        
+        return translateBy(translatePoint);
     }
     
     //Extra
