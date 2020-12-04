@@ -10,16 +10,17 @@ buildscript {
             name = 'SpongePowered'
             url = 'http://repo.spongepowered.org/maven'
         }
-
+        maven{
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+        classpath "gradle.plugin.com.zoltu.gradle.plugin:git-versioning:3.0.3"
     }
 }
-
-
 
 
 allprojects {
@@ -42,9 +43,16 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'maven'
+apply plugin: "com.zoltu.git-versioning"
+
+def versionInfo = ZoltuGitVersioning.versionInfo
 
 
-version = "1.0.2d"
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
 group = "com.jumbodinosaurs"
 archivesBaseName = "mcdevlib"
 
@@ -62,7 +70,6 @@ minecraft {
 }
 
 
-
 dependencies {
     compile 'org.spongepowered:spongeapi:8.0.0-SNAPSHOT'
     compile 'com.github.WalkingLibrary:Java-Dev-Lib:-SNAPSHOT'
@@ -73,7 +80,6 @@ dependencies {
             }
 
 }
-
 
 
 reobf {
@@ -96,15 +102,12 @@ shadowJar {
 }
 
 
-
 build.dependsOn(shadowJar)
-
-
 
 
 jar {
     manifest {
-        attributes (
+        attributes(
                 "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
                 "TweakOrder": 0,
                 'FMLCorePluginContainsFMLMod': 'true',
@@ -128,7 +131,7 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
 
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
 
     from(sourceSets.main.resources.srcDirs) {
@@ -137,5 +140,5 @@ processResources {
 }
 
 
-
+print "Build Version: ${versionInfo.major}.${versionInfo.minor}.${versionInfo.commitCount}\n"
 

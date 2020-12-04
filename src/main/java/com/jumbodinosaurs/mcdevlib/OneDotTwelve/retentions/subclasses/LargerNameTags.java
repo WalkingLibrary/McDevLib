@@ -74,16 +74,8 @@ public class LargerNameTags extends BindableRentention implements IDisplayable
         WayPoint otherGuy = new WayPoint(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
         scale = (int) PlayerHelper.getPlayerPositionAsWayPoint().getNoSqRtEuclideanDistance(otherGuy) / 8;
         
-        int minScale = 70;
-        if(scale < minScale)
-        {
-            if(scale > ScaledFontRenderer.drawRegularThreshold)
-            {
-                scale = minScale;
-            }
-        }
         
-        int maxScale = 150;
+        int maxScale = 50;
         if(scale > maxScale)
         {
             scale = maxScale;
@@ -102,28 +94,55 @@ public class LargerNameTags extends BindableRentention implements IDisplayable
         GlStateManager.disableLighting();
         GlStateManager.depthMask(false);
         GlStateManager.disableDepth();
-        
+    
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
                                             GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
                                             GlStateManager.SourceFactor.ONE,
                                             GlStateManager.DestFactor.ZERO);
-        int i = fontRendererIn.getStringWidth(name) / 2;
-        int verticalShift = -fontRendererIn.getScale();
-        if(scale > ScaledFontRenderer.drawRegularThreshold)
+        int nameWidthHalfed = fontRendererIn.getStringWidth(name) / 2;
+        int nameHeight = 8 * -fontRendererIn.getScale();
+        int verticalShift = 0;
+        if(scale <= ScaledFontRenderer.drawRegularThreshold)
         {
-            
+        
+        
+            GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
+                                                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                                                GlStateManager.SourceFactor.ONE,
+                                                GlStateManager.DestFactor.ZERO);
             GlStateManager.disableTexture2D();
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-            bufferbuilder.pos(-i - 1, verticalShift * 2, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            bufferbuilder.pos(-i - 1, 0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            bufferbuilder.pos(i + 1, 0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            bufferbuilder.pos(i + 1, verticalShift * 2, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            bufferbuilder.pos(-nameWidthHalfed - 1, -1 + verticalShift, 0.0D)
+                         .color(0.0F, 0.0F, 0.0F, 0.25F)
+                         .endVertex();
+            bufferbuilder.pos(-nameWidthHalfed - 1, 8 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            bufferbuilder.pos(nameWidthHalfed + 1, 8 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            bufferbuilder.pos(nameWidthHalfed + 1, -1 + verticalShift, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
             tessellator.draw();
-            
             GlStateManager.enableTexture2D();
+        }
+        else
+        {
+            GlStateManager.disableTexture2D();
+            Tessellator tessellator = Tessellator.getInstance();
+            BufferBuilder bufferbuilder = tessellator.getBuffer();
+            bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
+            bufferbuilder.pos(-nameWidthHalfed - 1, nameHeight + verticalShift, 0.0D)
+                         .color(0.0F, 0.0F, 0.0F, 0.25F)
+                         .endVertex();
+            bufferbuilder.pos(-nameWidthHalfed - 1, 0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            bufferbuilder.pos(nameWidthHalfed + 1, 0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            bufferbuilder.pos(nameWidthHalfed + 1, nameHeight + verticalShift, 0.0D)
+                         .color(0.0F, 0.0F, 0.0F, 0.25F)
+                         .endVertex();
+            tessellator.draw();
+        
+            GlStateManager.enableTexture2D();
+        
         }
         
         

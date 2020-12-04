@@ -10,7 +10,7 @@ public class ScaledFontRenderer extends FontRenderer
 {
     
     public static final int DEFAULT_SCALE = 9;
-    public static int drawRegularThreshold = 10;
+    public static int drawRegularThreshold = 1;
     private int scale = DEFAULT_SCALE;
     
     public ScaledFontRenderer(GameSettings gameSettingsIn,
@@ -24,42 +24,50 @@ public class ScaledFontRenderer extends FontRenderer
     @Override
     protected float renderDefaultChar(int ch, boolean italic)
     {
-        if(this.scale < drawRegularThreshold)
+        if(this.scale <= drawRegularThreshold)
         {
             return super.renderDefaultChar(ch, italic);
         }
-        int i = ch % 16 * 8;
-        int j = ch / 16 * 8;
+        int spriteStartPlaceX = ch % 16 * 8;
+        int spriteStartPlaceY = ch / 16 * 8;
         bindTexture(this.locationFontTexture);
-        int l = this.charWidth[ch];
-        float f = (float) l - 0.01F;
-        l = l + scale;
-        
+        int characterLength = this.charWidth[ch];
+        int defaultSpacing = italic ? 1 : 0;
+        float characterSpriteWidth = (float) characterLength - 0.01F;
+        float characterSpriteHeight = 7.99F;
+        characterLength = characterLength * scale;
+        int characterSpacing = (defaultSpacing + 1) * scale;
+        float characterRenderHeight = characterSpriteHeight * scale;
+    
         GlStateManager.glBegin(5);
-        GlStateManager.glTexCoord2f((float) i / 128.0F, (float) j / 128.0F);
-        
-        GlStateManager.glVertex3f(this.posX, this.posY - scale, 0.0F);
-        
-        GlStateManager.glTexCoord2f((float) i / 128.0F, ((float) j + 7.99F) / 128.0F);
-        
-        GlStateManager.glVertex3f(this.posX, this.posY + scale, 0.0F);
-        
-        GlStateManager.glTexCoord2f(((float) i + f - 1.0F) / 128.0F, (float) j / 128.0F);
-        
-        GlStateManager.glVertex3f(this.posX + l - 30, this.posY - scale, 0.0F);
-        
-        GlStateManager.glTexCoord2f(((float) i + f - 1.0F) / 128.0F, ((float) j + 7.99F) / 128.0F);
-        
-        GlStateManager.glVertex3f(this.posX + l - 30, this.posY + scale, 0.0F);
-        
+        GlStateManager.glTexCoord2f((float) spriteStartPlaceX / 128.0F, (float) spriteStartPlaceY / 128.0F);
+    
+        GlStateManager.glVertex3f(this.posX, this.posY - characterRenderHeight, 0.0F);
+    
+        GlStateManager.glTexCoord2f((float) spriteStartPlaceX / 128.0F, ((float) spriteStartPlaceY + 7.99F) / 128.0F);
+    
+        GlStateManager.glVertex3f(this.posX, this.posY, 0.0F);
+    
+        GlStateManager.glTexCoord2f(((float) spriteStartPlaceX + characterSpriteWidth - 1.0F) / 128.0F,
+                                    (float) spriteStartPlaceY / 128.0F);
+    
+        GlStateManager.glVertex3f(this.posX + characterLength - characterSpacing,
+                                  this.posY - characterRenderHeight,
+                                  0.0F);
+    
+        GlStateManager.glTexCoord2f(((float) spriteStartPlaceX + characterSpriteWidth - 1.0F) / 128.0F,
+                                    ((float) spriteStartPlaceY + characterSpriteHeight) / 128.0F);
+    
+        GlStateManager.glVertex3f(this.posX + characterLength - characterSpacing, this.posY, 0.0F);
+    
         GlStateManager.glEnd();
-        return (float) l;
+        return (float) characterLength;
     }
     
     @Override
     public int getStringWidth(String text)
     {
-        if(this.scale < drawRegularThreshold)
+        if(this.scale <= drawRegularThreshold)
         {
             return super.getStringWidth(text);
         }
@@ -96,16 +104,16 @@ public class ScaledFontRenderer extends FontRenderer
                     
                     k = 0;
                 }
-                
-                i += k + this.scale;
+    
+                i += k;
                 
                 if(flag && k > 0)
                 {
                     i++;
                 }
             }
-            
-            return i;
+        
+            return i * this.scale;
         }
     }
     
